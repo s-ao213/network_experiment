@@ -16,7 +16,7 @@
             <li><a href="#section2">OSのダウンロードとインストール</a></li>
             <li><a href="#section3">Linuxの概要</a></li>
             <li><a href="#section4">基本的なコマンド操作</a></li>
-            <li><a href="#section5"></a></li>
+            <li><a href="#section5">ユーザー管理</a></li>
             <li><a href="#section">参考文献</a></li>
         </ol>
     </div>
@@ -202,10 +202,169 @@
             </div>
         </div>
     </section>
-
+<!-- 
     <section id="section5">
-        
+        <h2>5. ユーザ管理</h2>
+        <p>Linuxでは、一般的に作業は一般ユーザで行い、管理者権限が必要な作業はrootユーザで行います。すべてをrootユーザで行うと、ミスがあった場合の影響が大きくなるため、異なる目的に応じてユーザを使い分ける必要があります。</p>
+        <ul>
+            <li><strong>一般ユーザ</strong>でのプロンプト末尾は「$」</li>
+            <li><strong>rootユーザ</strong>でのプロンプト末尾は「#」</li>
+        </ul>
+
+        <h3>rootユーザのパスワード設定</h3>
+        <p>初回インストール後、Ubuntuではrootユーザのパスワードは未設定のため、自分で設定する必要があります。</p>
+        <pre><code>$ sudo passwd root</code></pre>
+
+        <h3>一般ユーザの追加・削除とグループの管理</h3>
+        <ul>
+            <li><strong>ユーザの追加</strong>
+                <img src="new_user_create.png" alt="ユーザーの追加画面">
+                <p>新規ユーザー作成のコマンドは<code>$ sudo adduser ユーザ名</code>です。設定を進めていくと上記画像のように住所や電話番号を登録するか聞かれますが、ここは任意なので登録しない場合は、Enterキーを押してスキップし構いません。</p>
+            </li>
+            <li><strong>ユーザをグループへ追加</strong>
+                <p><code>$ sudo usermod -aG グループ名 ユーザ名</code>でグループに追加できます。</p>
+                <p>
+                    今使っているユーザーがどのようなグループに所属しているかの確認は下記画像のように<code>$ groups グループ名</code>でできます。
+                    <img src="group.png" alt="グループの確認">
+                </p>
+            </li>
+            <li><strong>削除</strong>
+                <p>グループからユーザーを削除する際は<code>$ sudo gpasswd -d ユーザ名 グループ名</code>のコマンドで実行できます。またユーザー自体を削除する際は、<code>$ sudo userdel ユーザ名</code>で削除することができます。</p>
+            </li>
+        </ul>
+
+        <h3>ユーザの切り替え</h3>
+        <p>
+            作業に応じて適切なユーザに切り替えるには <code>su</code> コマンドを使用します。
+            <img src="su_result.png" alt="suコマンドの実行結果">
+            <br>
+            特定のユーザーに切り替えるためは上記の画像のように、<code>$ su ユーザ名</code>で切り替えることができます。rootユーザーへの切り替えは、<code>$ su</code>か<code>$ su -</code>で行います。<code>su -</code> を使うと、rootユーザへの切り替え時にホームディレクトリにも移動します。
+        </p>
+
+        <h3>sudoコマンド</h3>
+        <p>
+            管理者権限が必要な操作は、先ほども記述した通りセキュリティ上の観点からrootユーザを使うことは避け、代わりに <code>sudo</code> コマンドを使います。<span style="color: red;"><code>sudo</code> を使用するためには、事前にユーザをsudoグループに追加しておく必要があります。</span>
+            <br>
+            <code>$ sudo コマンド名</code>のコマンドを使用すると、rootユーザのパスワードを知らなくても管理者権限の作業を行うことができるため、Linuxシステムの管理がより安全に行えます。
+        </p>
     </section>
+
+    <section id="#sectuin6">
+        <h1>11. 基本的なサーバ管理</h1>
+
+<h2>11.1 サーバ負荷</h2>
+<p>サーバの稼働状況 (負荷)を確認し、十分に稼働できているのかを理解することで、サーバのスペックが十分かどうかの判断ができます。サーバの負荷を確認するには、<code>uptime</code> コマンドを実行します。</p>
+<pre><code>$ uptime</code></pre>
+<p>このコマンドを実行すると、「load average」という項目が表示されます。左から順に、1分間での負荷、5分間での負荷、15分間での負荷が表示されます。これらの負荷がサーバのCPUコア数を下回る値であれば問題ありません。例えば、稼働しているサーバのCPUコア数が2であるとき、負荷がそれぞれ2.00より下回っていれば問題なく稼働しています。</p>
+<p>しかし、コア数を上回る値が持続している場合は、サーバのスペックが不足しているため、増強が必要です。</p>
+
+<h2>11.2 ディスク使用状況</h2>
+<p>ディスクの使用状況は <code>df</code> コマンドを使って確認できます。コマンドを実行する際は、単位が見やすくなる <code>-h</code> オプションを付けると良いでしょう。</p>
+<pre><code>$ df -h</code></pre>
+<p>このコマンドで、サーバ内にマウントされているファイルシステムの一覧と各ファイルシステムの使用状況を表示します。</p>
+<pre><code>Filesystem      Size  Used Avail Use% Mounted on
+none            3.8G     0  3.8G   0% /usr/lib/modules
+・・・</code></pre>
+
+<h2>11.3 メモリとスワップ</h2>
+<p>メインメモリやスワップ領域の利用状況を把握する場合は、<code>free</code> コマンドを使います。この時も <code>-h</code> オプションを付けます。</p>
+<pre><code>$ free -h</code></pre>
+<pre><code>total      used      free      shared  buff/cache  available
+Mem:        7.4Gi    600Mi    6.4Gi    3.0Mi      479Mi    6.6Gi
+Swap:       2.0Gi      0B     2.0Gi</code></pre>
+<p>スワップ領域が常に利用されている場合は、メインメモリが不足しているため、メモリ増設の判断基準となります。</p>
+
+<h2>11.4 実行プロセス</h2>
+<p>実行中のプログラムはプロセスと呼ばれます。プロセスを確認するには、<code>ps</code> コマンドを使います。</p>
+<pre><code>$ ps aux</code></pre>
+<p>これにより実行中のすべてのプロセスが表示されますが、特定のプロセスについて確認したい場合は、<code>less</code> コマンドや <code>grep</code>を併せて使うことを推奨します。</p>
+<pre><code>USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.5  0.1 166060 11384 ?        Ss   10:50   0:02 /sbin/init
+root           2  0.0  0.0   2476  1432 ?        Sl   10:50   0:00 /init
+root           6  0.0  0.0   2504  1172 ?        Sl   10:50   0:00 plan9 --control-socket 6 --log-level 4 --
+root          41  0.0  0.1  47744 15488 ?        S<s  10:50   0:00 /lib/systemd/systemd-journald
+root          61  0.0  0.0  22624  6460 ?        Ss   10:50   0:00 /lib/systemd/systemd-udevd
+・・・</code></pre>
+
+<h2>11.5 システムモニタリング</h2>
+<p>システムの状態をリアルタイムにモニタリングしたい場合は、<code>top</code> コマンドを使用します。このコマンドは、<code>uptime</code> コマンドや <code>free</code> コマンド、<code>ps</code> コマンドで得られる結果をまとめて表示し、3秒ごとに情報が更新されます。</p>
+<pre><code>$ top</code></pre>
+<pre><code>top - 11:07:48 up 17 min, 1 user, load average: 0.12, 0.03, 0.01
+Tasks: 42 total, 1 running, 41 sleeping, 0 stopped, 0 zombie
+%Cpu(s): 0.0 us, 0.0 sy, 0.0 ni, 99.9 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+MiB Mem : 7588.3 total, 6699.3 free, 626.8 used, 262.3 buff/cache
+MiB Swap: 2048.0 total, 2048.0 free, 0.0 used. 6731.7 avail Mem
+PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+1 root   20   0 166060 11384 8280 S  0.7  0.1  0:05.12 systemd
+・・・</code></pre>
+
+<h2>11.6 サービス管理</h2>
+<p>サービスは、OS本体から切り離し可能な特定の役割や機能を持ったサブシステムです。サービスには、ログ管理やネットワーク、各種サーバプログラムなどがあります。</p>
+<p>サービスの起動や停止を管理するには <code>systemctl</code> コマンドを使用します。</p>
+<pre><code>$ systemctl サブコマンド サービス名</code></pre>
+<p>以下のサブコマンドが利用可能です：</p>
+<ul>
+    <li><code>start</code>: サービスを開始する</li>
+    <li><code>stop</code>: サービスを停止する</li>
+    <li><code>reload</code>: サービスを再起動する（サービスの停止なしで設定を反映させる）</li>
+    <li><code>restart</code>: サービスを再起動する（サービスを停止し設定を反映させる）</li>
+    <li><code>enable</code>: システム起動時にサービスを自動的に開始する</li>
+    <li><code>disable</code>: システム起動時にサービスが自動的に開始しないようにする</li>
+    <li><code>status</code>: サービスの状態を確認する</li>
+</ul>
+
+<h2>11.7 スケジュール管理</h2>
+<p>定期的にメンテナンス作業を実施する必要があります。指定したコマンドを定期的に実行する仕組みとして <code>cron</code> があり、<code>crontab</code> コマンドで管理されます。これにより、1日1回や1時間に1回、指定した処理を自動的に実行することが可能です。</p>
+<p>自動実行の最小単位は1分です。</p>
+<pre><code>$ crontab [オプション]</code></pre>
+<p>利用できるオプションの例：</p>
+<ul>
+    <li><code>-e</code>: スケジュール設定を編集する</li>
+    <li><code>-l</code>: スケジュール設定を表示する</li>
+    <li><code>-r</code>: すべてのスケジュール設定を削除する</li>
+</ul>
+<p>スケジュールの書式は以下の通りです：</p>
+<pre><code>分 時 日 月 曜日 実行コマンド</code></pre>
+<p>具体的なスケジュール設定の例：</p>
+<ul>
+    <li><code>3 * * * *</code>: 毎時3分に実行する</li>
+    <li><code>30 23 * * *</code>: 毎日23時30分に実行する</li>
+    <li><code>30 23 1 * *</code>: 毎月1日23時30分に実行する</li>
+    <li><code>30 23 1 1 *</code>: 毎年1月1日23時30分に実行する</li>
+    <li><code>30 23 * * 0</code>: 毎週日曜日23時30分に実行する</li>
+    <li><code>*/5 * * * *</code>: 5分ごとに実行する</li>
+</ul>
+<p>コマンドを加えたスケジュール設定の例：</p>
+<ul>
+    <li><code>* * * * * /usr/bin/uptime >> /tmp/uptime.log</code>: 1分ごとに uptime コマンドを実行し、結果を /tmp/uptime.log に追記する</li>
+</ul>
+<p>また、スケジュール設定ファイルから記述する方法もあります。</p>
+<ul>
+    <li><code>/etc/crontab</code>: システム全体のスケジュール</li>
+    <li><code>/etc/cron.d/</code>: 個別の設定ファイルを格納するディレクトリ</li>
+    <li><code>/etc/cron.hourly/</code>: 1時間ごとに実行される設定ファイルを格納するディレクトリ</li>
+    <li><code>/etc/cron.daily/</code>: 1日ごとに実行される設定ファイルを格納するディレクトリ</li>
+    <li><code>/etc/cron.weekly/</code>: 1週間ごとに実行される設定ファイルを格納するディレクトリ</li>
+    <li><code>/etc/cron.monthly/</code>: 1か月ごとに実行される設定ファイルを格納するディレクトリ</li>
+</ul>
+<p><code>crontab</code> コマンドは実行したユーザの権限下で各コマンドが実行されるため、管理者権限が必要なコマンドをスケジュールとして実行したい場合は、rootユーザに切り替えてから実行する必要があります。</p>
+
+<h2>11.8 時刻管理</h2>
+<p>サーバを運用する上で、システムの時刻の正確さは重要です。システムの時刻がずれていると、ログが活用できなくなったり、他のサーバとのやり取りでエラーが生じる可能性があります。Ubuntuでは、時刻管理を <code>timedatectl</code> コマンドで行います。</p>
+<pre><code>$ timedatectl</code></pre>
+<pre><code>Local time: Wed 2024-09-18 15:29:39 JST
+    Universal time: Wed 2024-09-18 06:29:39 UTC
+    RTC time: Wed 2024-09-18 06:29:39
+    Time zone: Asia/Tokyo (JST, +0900)
+    System clock synchronized: yes
+    NTP service: inactive
+    RTC in local TZ: no</code></pre>
+    <p>時刻を自動で設定したい場合は、NTP (Network Time Protocol) を利用します。NTPはインターネット経由で時刻を同期させる仕組みで、<code>timedatectl</code> コマンドで有効化することができます。正しく実行できれば、<code>timedatectl</code> コマンドの実行結果に <code>NTP synchronized: yes</code> と表示されます。</p>
+    <pre><code>$ sudo timedatectl set-ntp true</code></pre>
+    <p>サーバのタイムゾーンを設定する場合は、利用可能なタイムゾーンを確認した後、<code>timedatectl</code> コマンドで設定します。日本の場合は、「<code>Asia/Tokyo</code>」を指定します。</p>
+    <pre><code>$ sudo timedatectl set-timezone Asia/Tokyo</code></pre>
+
+    </section> -->
 
     <section id="section">
         <h2>参考文献</h2>
