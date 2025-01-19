@@ -3,54 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サーバ構築手順書</title>
+    <title>サーバー構築実験の手順書</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>サーバー構築実験の手順書</h1>
-    <div>
+
+    <div class="toc">
         <h2>目次</h2>
         <ol>
-            <li>目的と環境</li>
-            <li>OSのダウンロード</li>
-            <li>参考文献</li>
+            <li><a href="#section1">目的と環境</a></li>
+            <li><a href="#section2">OSのダウンロードとインストール</a></li>
+            <li><a href="#section3">Linuxの概要</a></li>
+            <li><a href="#section4">基本的なコマンド操作</a></li>
+            <li><a href="#section5"></a></li>
+            <li><a href="#section">参考文献</a></li>
         </ol>
     </div>
 
-    <div>
+    <section id="section1">
         <h2>目的と環境</h2>
-
-    </div>
-    
-    <div>
-        <h2>OSのダウンロード</h2>
-        <h3>UbuntuのインストールUSBメディアを作成する</h3>
-        <p><a href="https://www.ubuntulinux.jp/download">Ubuntu Japanese Team</a>にアクセスし、インストールイメージをダウンロードします。このとき、日本語Remixのイメージの方が日本語化が多くされているのでRemixのイメージがおすすめです。</p>
         <p>
-            次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。
-            <img src="rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
-            一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。
-            <h5>注意</h5>
-            ユーザーアカウント制御のダイアログが表示された場合は、「OK」をクリックしてください。また初回のみ、Rufusの更新ポリシーに関するダイアログが表示されるので確認してください。
-            起動したらまず<span>USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。
-            <img src="rufus_setting.png" alt="rufusで設定している様子">
-            <h5>注意</h5>
-            途中でダウンロードを求めてくるダイヤログが表示されたときは、「はい」をクリックしてください。
-            続いて、ハイブリッドISOイメージの検出のダイアログが表示されるので推奨のまま「OK」を押してください。
-            最後に警告のダイアログが表示されますので、作成するUSBメディアが正しいかを確認して、再度OKを押すと、ファイルのコピーが始まります。
-            状態が準備完了になったら閉じるを押してください。
+            本実習では、基本的なサーバー構築の手順を学び、Linuxの基礎知識とコマンド操作を習得することを目的とします。
         </p>
-    <h3>作成したインストールUSBメディアからUbuntsuを起動する</h3>
-    <p>USBメディアを指した状態でASUSを起動すると、選択画面が表示されるので一番上の<code>*Try or Install Ubuntsu</code>を選択しEnterキーでを押すとようこそと書かれた画面に移動します。そこで「Ubuntsuをインストール」を選択して、キーボードのレイアウトは日本語（Japanese）を選択します。無線は現状使わないので設定しなくても大丈夫です。そのまま進めていくと、アップデートとほかのソフトウェアというページに行きます。そこでは初期設定の通常のインストールを選択し、そのまま次に進みます。インストールの種類は、過去のデータが残っている場合は、一から作成したいので、ディスクを削除してUbuntsuをインストールを選択します。そのあとも初期設定どおり続けていきユーザーIDなども登録すると、インストールが始まります。インストールが終わると再起動を行うように指示が出るので、適宜行ってください。以上でUbuntsuのインストール作業は終了です。</p>
-    </div>
+    </section>
 
-    <div>
+    <section id="section2">
+        <div>
+            <h2 id="section1">目的と環境</h2>
+        </div>
+        
+        <div>
+            <h2 id="section2">OSのダウンロード</h2>
+            <h3>UbuntuのインストールUSBメディアを作成する</h3>
+            <p><a href="https://www.ubuntulinux.jp/download">Ubuntu Japanese Team</a>にアクセスし、インストールイメージをダウンロードします。このとき、日本語Remixのイメージの方が日本語化が多くされているのでRemixのイメージがおすすめです。</p>
+            <p>
+                次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。
+                <img src="rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
+                一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。
+                <h5>注意</h5>
+                ユーザーアカウント制御のダイアログが表示された場合は、「OK」をクリックしてください。また初回のみ、Rufusの更新ポリシーに関するダイアログが表示されるので確認してください。
+                起動したらまず<span>USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。
+                <img src="rufus_setting.png" alt="rufusで設定している様子">
+                <h5>注意</h5>
+                途中でダウンロードを求めてくるダイヤログが表示されたときは、「はい」をクリックしてください。
+                続いて、ハイブリッドISOイメージの検出のダイアログが表示されるので推奨のまま「OK」を押してください。
+                最後に警告のダイアログが表示されますので、作成するUSBメディアが正しいかを確認して、再度OKを押すと、ファイルのコピーが始まります。
+                状態が準備完了になったら閉じるを押してください。
+            </p>
+        <h3>作成したインストールUSBメディアからUbuntsuを起動する</h3>
+        <p>USBメディアを指した状態でASUSを起動すると、選択画面が表示されるので一番上の<code>*Try or Install Ubuntsu</code>を選択しEnterキーでを押すとようこそと書かれた画面に移動します。そこで「Ubuntsuをインストール」を選択して、キーボードのレイアウトは日本語（Japanese）を選択します。無線は現状使わないので設定しなくても大丈夫です。そのまま進めていくと、アップデートとほかのソフトウェアというページに行きます。そこでは初期設定の通常のインストールを選択し、そのまま次に進みます。インストールの種類は、過去のデータが残っている場合は、一から作成したいので、ディスクを削除してUbuntsuをインストールを選択します。そのあとも初期設定どおり続けていきユーザーIDなども登録すると、インストールが始まります。インストールが終わると再起動を行うように指示が出るので、適宜行ってください。以上でUbuntsuのインストール作業は終了です。</p>
+        </div>    
+    </section>
+
+    <section id="section3">
+        <h2>Linuxの概要</h2>
+        
+        <h3>Linuxとは</h3>
+        <p>
+            Linuxは、リーナス・トーバルズ氏らによって開発されたオープンソースのオペレーティングシステムです。
+            低価格なコンピュータでも動作でき、無償で入手・利用できることから広く採用されています。
+            AndroidやRaspberry Piなども、LinuxをベースOSとして採用しています。
+        </p>
+
+        <h3>Linuxディストリビューション</h3>
+        <div class="important">
+            <p>ディストリビューションの主な構成要素：</p>
+            <ul>
+                <li>カーネル</li>
+                <li>シェル</li>
+                <li>ユーザインターフェース</li>
+                <li>インストーラ</li>
+            </ul>
+        </div>
+
+        <h4>主なディストリビューション</h4>
+        <ul>
+            <li>Red Hat系
+                <ul>
+                    <li>Red Hat Enterprise Linux</li>
+                    <li>CentOS</li>
+                    <li>Rocky Linux</li>
+                </ul>
+            </li>
+            <li>Debian系
+                <ul>
+                    <li>Debian GNU/Linux</li>
+                    <li>Ubuntu</li>
+                    <li>Linux Mint</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section id="section4">
+        <h2>基本的なコマンド操作</h2>
+
+        <h3>ファイルやディレクトリ操作</h3>
+        <div class="command-section">
+            <p><span class="command">ls</span></p>
+            <div class="description">
+                <p>ディレクトリ内容の確認を行います。</p>
+                <ul>
+                    <li>ls -l：詳細な一覧を表示</li>
+                    <li>ls -a：隠しファイルも表示</li>
+                    <li>ls -h：ファイルサイズを人間が読みやすい形式で表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">cd</span></p>
+            <div class="description">
+                <p>ディレクトリの移動を行います。</p>
+                <ul>
+                    <li>cd ..：一つ上のディレクトリへ移動</li>
+                    <li>cd ~：ホームディレクトリへ移動</li>
+                    <li>cd /：ルートディレクトリへ移動</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">pwd</span></p>
+            <div class="description">
+                <p>現在のディレクトリのパスを表示します。</p>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">mkdir</span></p>
+            <div class="description">
+                <p>新しいディレクトリを作成します。</p>
+                <ul>
+                    <li>mkdir -p：親ディレクトリも同時に作成</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">rm</span></p>
+            <div class="description">
+                <p>ファイルやディレクトリの削除を行います。</p>
+                <ul>
+                    <li>rm -r：ディレクトリを再帰的に削除</li>
+                    <li>rm -f：確認なしで強制削除</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>テキスト操作</h3>
+        <div class="command-section">
+            <p><span class="command">cat</span></p>
+            <div class="description">
+                <p>ファイルの内容を表示します。</p>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">less</span></p>
+            <div class="description">
+                <p>ファイルの内容をページ送りで表示します。</p>
+                <ul>
+                    <li>スペース：次のページへ</li>
+                    <li>b：前のページへ</li>
+                    <li>q：終了</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">grep</span></p>
+            <div class="description">
+                <p>指定した文字列を含む行を検索します。</p>
+                <ul>
+                    <li>grep -i：大文字小文字を区別しない</li>
+                    <li>grep -r：ディレクトリ内を再帰的に検索</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <p><span class="command">vi/vim</span></p>
+            <div class="description">
+                <p>テキストエディタを起動します。</p>
+                <p>主な操作モード：</p>
+                <ul>
+                    <li>ノーマルモード：デフォルトモード、移動や編集コマンドを使用</li>
+                    <li>インサートモード：i キーで入力、ESCで戻る</li>
+                    <li>コマンドモード：: で入力、保存や終了などのコマンドを実行</li>
+                </ul>
+                <p>基本的なコマンド：</p>
+                <ul>
+                    <li>:w - 保存</li>
+                    <li>:q - 終了</li>
+                    <li>:wq - 保存して終了</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="section5">
+        
+    </section>
+
+    <section id="section">
         <h2>参考文献</h2>
         <ul>
             <li><a href="https://diagnose-fix.com/topic2-003/">OSのダウンロード</a></li>
             <li><a href="https://lilaboc.work/archives/29007972.html">日本語のダウンロード</a></li>
         </ul>
-    </div>
+    </section>
 </body>
-<script src="script.js"></script>
 </html>
