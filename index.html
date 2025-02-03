@@ -1,377 +1,851 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サーバー構築実験の手順書</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>サーバー構築実験の手順書</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>サーバー構築実験の手順書</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>サーバー構築実験の手順書</h1>
 
-    <div class="toc">
-        <h2>目次</h2>
-        <ol>
-            <li><a href="#section1">目的と環境</a></li>
-            <li><a href="#section2">OSのダウンロードとインストール</a></li>
-            <li><a href="#section3">Linuxの概要</a></li>
-            <li><a href="#section4">基本的なコマンド操作</a></li>
-            <li><a href="#section5">ユーザー管理</a></li>
-            <li><a href="#section">参考文献</a></li>
-        </ol>
-    </div>
-
-    <section id="section1">
-        <h2>目的と環境</h2>
-        <p>
-            本実習では、基本的なサーバー構築の手順を学び、Linuxの基礎知識とコマンド操作を習得することを目的とします。
-        </p>
-    </section>
-
-    <section id="section2">
-        <div>
-            <h2 id="section1">目的と環境</h2>
+        <div class="toc">
+            <h2>目次</h2>
+            <ol>
+                <li><a href="#section1">目的と環境</a></li>
+                <li><a href="#section2">OSのダウンロードとインストール</a></li>
+                <li><a href="#section3">Linuxの概要</a></li>
+                <li><a href="#section4">基本的なコマンド操作</a></li>
+                <li><a href="#section5">ユーザー管理</a></li>
+                <li><a href="#section6">基本的なサーバー管理</a></li>
+                <li><a href="#section7">Webサーバー構築</a></li>
+                <li><a href="#section8">SSHの設定</a></li>
+                <li><a href="#section">参考文献</a></li>
+            </ol>
         </div>
-        
-        <div>
-            <h2 id="section2">OSのダウンロード</h2>
-            <h3>UbuntuのインストールUSBメディアを作成する</h3>
-            <p><a href="https://www.ubuntulinux.jp/download">Ubuntu Japanese Team</a>にアクセスし、インストールイメージをダウンロードします。このとき、日本語Remixのイメージの方が日本語化が多くされているのでRemixのイメージがおすすめです。</p>
+
+        <section id="section1">
+            <h2>目的と環境</h2>
             <p>
-                次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。
-                <img src="rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
-                一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。
-                <h5>注意</h5>
-                ユーザーアカウント制御のダイアログが表示された場合は、「OK」をクリックしてください。また初回のみ、Rufusの更新ポリシーに関するダイアログが表示されるので確認してください。
-                起動したらまず<span>USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。
-                <img src="rufus_setting.png" alt="rufusで設定している様子">
-                <h5>注意</h5>
-                途中でダウンロードを求めてくるダイヤログが表示されたときは、「はい」をクリックしてください。
-                続いて、ハイブリッドISOイメージの検出のダイアログが表示されるので推奨のまま「OK」を押してください。
-                最後に警告のダイアログが表示されますので、作成するUSBメディアが正しいかを確認して、再度OKを押すと、ファイルのコピーが始まります。
-                状態が準備完了になったら閉じるを押してください。
+                本実習では、基本的なサーバー構築の手順を学び、Linuxの基礎知識とコマンド操作を習得することを目的とします。
             </p>
-        <h3>作成したインストールUSBメディアからUbuntsuを起動する</h3>
-        <p>USBメディアを指した状態でASUSを起動すると、選択画面が表示されるので一番上の<code>*Try or Install Ubuntsu</code>を選択しEnterキーでを押すとようこそと書かれた画面に移動します。そこで「Ubuntsuをインストール」を選択して、キーボードのレイアウトは日本語（Japanese）を選択します。無線は現状使わないので設定しなくても大丈夫です。そのまま進めていくと、アップデートとほかのソフトウェアというページに行きます。そこでは初期設定の通常のインストールを選択し、そのまま次に進みます。インストールの種類は、過去のデータが残っている場合は、一から作成したいので、ディスクを削除してUbuntsuをインストールを選択します。そのあとも初期設定どおり続けていきユーザーIDなども登録すると、インストールが始まります。インストールが終わると再起動を行うように指示が出るので、適宜行ってください。以上でUbuntsuのインストール作業は終了です。</p>
-        </div>    
-    </section>
+        </section>
 
-    <section id="section3">
-        <h2>Linuxの概要</h2>
-        
-        <h3>Linuxとは</h3>
-        <p>
-            Linuxは、リーナス・トーバルズ氏らによって開発されたオープンソースのオペレーティングシステムです。
-            低価格なコンピュータでも動作でき、無償で入手・利用できることから広く採用されています。
-            AndroidやRaspberry Piなども、LinuxをベースOSとして採用しています。
-        </p>
-
-        <h3>Linuxディストリビューション</h3>
-        <div class="important">
-            <p>ディストリビューションの主な構成要素：</p>
-            <ul>
-                <li>カーネル</li>
-                <li>シェル</li>
-                <li>ユーザインターフェース</li>
-                <li>インストーラ</li>
-            </ul>
-        </div>
-
-        <h4>主なディストリビューション</h4>
-        <ul>
-            <li>Red Hat系
-                <ul>
-                    <li>Red Hat Enterprise Linux</li>
-                    <li>CentOS</li>
-                    <li>Rocky Linux</li>
-                </ul>
-            </li>
-            <li>Debian系
-                <ul>
-                    <li>Debian GNU/Linux</li>
-                    <li>Ubuntu</li>
-                    <li>Linux Mint</li>
-                </ul>
-            </li>
-        </ul>
-    </section>
-
-    <section id="section4">
-        <h2>基本的なコマンド操作</h2>
-
-        <h3>ファイルやディレクトリ操作</h3>
-        <div class="command-section">
-            <p><span class="command">ls</span></p>
-            <div class="description">
-                <p>ディレクトリ内容の確認を行います。</p>
-                <ul>
-                    <li>ls -l：詳細な一覧を表示</li>
-                    <li>ls -a：隠しファイルも表示</li>
-                    <li>ls -h：ファイルサイズを人間が読みやすい形式で表示</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">cd</span></p>
-            <div class="description">
-                <p>ディレクトリの移動を行います。</p>
-                <ul>
-                    <li>cd ..：一つ上のディレクトリへ移動</li>
-                    <li>cd ~：ホームディレクトリへ移動</li>
-                    <li>cd /：ルートディレクトリへ移動</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">pwd</span></p>
-            <div class="description">
-                <p>現在のディレクトリのパスを表示します。</p>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">mkdir</span></p>
-            <div class="description">
-                <p>新しいディレクトリを作成します。</p>
-                <ul>
-                    <li>mkdir -p：親ディレクトリも同時に作成</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">rm</span></p>
-            <div class="description">
-                <p>ファイルやディレクトリの削除を行います。</p>
-                <ul>
-                    <li>rm -r：ディレクトリを再帰的に削除</li>
-                    <li>rm -f：確認なしで強制削除</li>
-                </ul>
-            </div>
-        </div>
-
-        <h3>テキスト操作</h3>
-        <div class="command-section">
-            <p><span class="command">cat</span></p>
-            <div class="description">
-                <p>ファイルの内容を表示します。</p>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">less</span></p>
-            <div class="description">
-                <p>ファイルの内容をページ送りで表示します。</p>
-                <ul>
-                    <li>スペース：次のページへ</li>
-                    <li>b：前のページへ</li>
-                    <li>q：終了</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">grep</span></p>
-            <div class="description">
-                <p>指定した文字列を含む行を検索します。</p>
-                <ul>
-                    <li>grep -i：大文字小文字を区別しない</li>
-                    <li>grep -r：ディレクトリ内を再帰的に検索</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="command-section">
-            <p><span class="command">vi/vim</span></p>
-            <div class="description">
-                <p>テキストエディタを起動します。</p>
-                <p>主な操作モード：</p>
-                <ul>
-                    <li>ノーマルモード：デフォルトモード、移動や編集コマンドを使用</li>
-                    <li>インサートモード：i キーで入力、ESCで戻る</li>
-                    <li>コマンドモード：: で入力、保存や終了などのコマンドを実行</li>
-                </ul>
-                <p>基本的なコマンド：</p>
-                <ul>
-                    <li>:w - 保存</li>
-                    <li>:q - 終了</li>
-                    <li>:wq - 保存して終了</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-<!-- 
-    <section id="section5">
-        <h2>5. ユーザ管理</h2>
-        <p>Linuxでは、一般的に作業は一般ユーザで行い、管理者権限が必要な作業はrootユーザで行います。すべてをrootユーザで行うと、ミスがあった場合の影響が大きくなるため、異なる目的に応じてユーザを使い分ける必要があります。</p>
-        <ul>
-            <li><strong>一般ユーザ</strong>でのプロンプト末尾は「$」</li>
-            <li><strong>rootユーザ</strong>でのプロンプト末尾は「#」</li>
-        </ul>
-
-        <h3>rootユーザのパスワード設定</h3>
-        <p>初回インストール後、Ubuntuではrootユーザのパスワードは未設定のため、自分で設定する必要があります。</p>
-        <pre><code>$ sudo passwd root</code></pre>
-
-        <h3>一般ユーザの追加・削除とグループの管理</h3>
-        <ul>
-            <li><strong>ユーザの追加</strong>
-                <img src="new_user_create.png" alt="ユーザーの追加画面">
-                <p>新規ユーザー作成のコマンドは<code>$ sudo adduser ユーザ名</code>です。設定を進めていくと上記画像のように住所や電話番号を登録するか聞かれますが、ここは任意なので登録しない場合は、Enterキーを押してスキップし構いません。</p>
-            </li>
-            <li><strong>ユーザをグループへ追加</strong>
-                <p><code>$ sudo usermod -aG グループ名 ユーザ名</code>でグループに追加できます。</p>
+        <section id="section2">        
+            <div>
+                <h2 id="section2">OSのダウンロードとインストール</h2>
+                <h3>UbuntuのインストールUSBメディアを作成する</h3>
+                <p><a href="https://www.ubuntulinux.jp/download">Ubuntu Japanese Team</a>にアクセスし、インストールイメージをダウンロードします。このとき、日本語Remixのイメージの方が日本語化が多くされているのでRemixのイメージがおすすめです。</p>
                 <p>
-                    今使っているユーザーがどのようなグループに所属しているかの確認は下記画像のように<code>$ groups グループ名</code>でできます。
-                    <img src="group.png" alt="グループの確認">
+                    次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。
+                    <img src="rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
+                    一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。
+                    <h5>注意</h5>
+                    ユーザーアカウント制御のダイアログが表示された場合は、「OK」をクリックしてください。また初回のみ、Rufusの更新ポリシーに関するダイアログが表示されるので確認してください。
+                    起動したらまず<span>USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。
+                    <img src="rufus_setting.png" alt="rufusで設定している様子">
+                    <h5>注意</h5>
+                    途中でダウンロードを求めてくるダイヤログが表示されたときは、「はい」をクリックしてください。
+                    続いて、ハイブリッドISOイメージの検出のダイアログが表示されるので推奨のまま「OK」を押してください。
+                    最後に警告のダイアログが表示されますので、作成するUSBメディアが正しいかを確認して、再度OKを押すと、ファイルのコピーが始まります。
+                    状態が準備完了になったら閉じるを押してください。
                 </p>
-            </li>
-            <li><strong>削除</strong>
-                <p>グループからユーザーを削除する際は<code>$ sudo gpasswd -d ユーザ名 グループ名</code>のコマンドで実行できます。またユーザー自体を削除する際は、<code>$ sudo userdel ユーザ名</code>で削除することができます。</p>
-            </li>
-        </ul>
+            <h3>作成したインストールUSBメディアからUbuntsuを起動する</h3>
+            <p>USBメディアを指した状態でASUSを起動すると、選択画面が表示されるので一番上の<code>*Try or Install Ubuntsu</code>を選択しEnterキーでを押すとようこそと書かれた画面に移動します。そこで「Ubuntsuをインストール」を選択して、キーボードのレイアウトは日本語（Japanese）を選択します。無線は現状使わないので設定しなくても大丈夫です。そのまま進めていくと、アップデートとほかのソフトウェアというページに行きます。そこでは初期設定の通常のインストールを選択し、そのまま次に進みます。インストールの種類は、過去のデータが残っている場合は、一から作成したいので、ディスクを削除してUbuntsuをインストールを選択します。そのあとも初期設定どおり続けていきユーザーIDなども登録すると、インストールが始まります。インストールが終わると再起動を行うように指示が出るので、適宜行ってください。以上でUbuntsuのインストール作業は終了です。</p>
+            </div>    
+        </section>
 
-        <h3>ユーザの切り替え</h3>
-        <p>
-            作業に応じて適切なユーザに切り替えるには <code>su</code> コマンドを使用します。
-            <img src="su_result.png" alt="suコマンドの実行結果">
-            <br>
-            特定のユーザーに切り替えるためは上記の画像のように、<code>$ su ユーザ名</code>で切り替えることができます。rootユーザーへの切り替えは、<code>$ su</code>か<code>$ su -</code>で行います。<code>su -</code> を使うと、rootユーザへの切り替え時にホームディレクトリにも移動します。
-        </p>
+        <section id="section3">
+            <h2>Linuxの概要</h2>
+            
+            <h3>Linuxとは</h3>
+            <p>
+                Linuxは、リーナス・トーバルズ氏らによって開発されたオープンソースのオペレーティングシステムです。
+                低価格なコンピュータでも動作でき、無償で入手・利用できることから広く採用されています。
+                AndroidやRaspberry Piなども、LinuxをベースOSとして採用しています。
+            </p>
 
-        <h3>sudoコマンド</h3>
-        <p>
-            管理者権限が必要な操作は、先ほども記述した通りセキュリティ上の観点からrootユーザを使うことは避け、代わりに <code>sudo</code> コマンドを使います。<span style="color: red;"><code>sudo</code> を使用するためには、事前にユーザをsudoグループに追加しておく必要があります。</span>
-            <br>
-            <code>$ sudo コマンド名</code>のコマンドを使用すると、rootユーザのパスワードを知らなくても管理者権限の作業を行うことができるため、Linuxシステムの管理がより安全に行えます。
-        </p>
-    </section>
+            <h3>Linuxディストリビューション</h3>
+            <div class="important">
+                <p>ディストリビューションの主な構成要素：</p>
+                <ul>
+                    <li>カーネル</li>
+                    <li>シェル</li>
+                    <li>ユーザインターフェース</li>
+                    <li>インストーラ</li>
+                </ul>
+            </div>
 
-    <section id="#sectuin6">
-        <h1>11. 基本的なサーバ管理</h1>
+            <h4>主なディストリビューション</h4>
+            <ul>
+                <li>Red Hat系
+                    <ul>
+                        <li>Red Hat Enterprise Linux</li>
+                        <li>CentOS</li>
+                        <li>Rocky Linux</li>
+                    </ul>
+                </li>
+                <li>Debian系
+                    <ul>
+                        <li>Debian GNU/Linux</li>
+                        <li>Ubuntu</li>
+                        <li>Linux Mint</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
 
-<h2>11.1 サーバ負荷</h2>
-<p>サーバの稼働状況 (負荷)を確認し、十分に稼働できているのかを理解することで、サーバのスペックが十分かどうかの判断ができます。サーバの負荷を確認するには、<code>uptime</code> コマンドを実行します。</p>
-<pre><code>$ uptime</code></pre>
-<p>このコマンドを実行すると、「load average」という項目が表示されます。左から順に、1分間での負荷、5分間での負荷、15分間での負荷が表示されます。これらの負荷がサーバのCPUコア数を下回る値であれば問題ありません。例えば、稼働しているサーバのCPUコア数が2であるとき、負荷がそれぞれ2.00より下回っていれば問題なく稼働しています。</p>
-<p>しかし、コア数を上回る値が持続している場合は、サーバのスペックが不足しているため、増強が必要です。</p>
+        <section id="section4">
+            <h2>基本的なコマンド操作</h2>
 
-<h2>11.2 ディスク使用状況</h2>
-<p>ディスクの使用状況は <code>df</code> コマンドを使って確認できます。コマンドを実行する際は、単位が見やすくなる <code>-h</code> オプションを付けると良いでしょう。</p>
-<pre><code>$ df -h</code></pre>
-<p>このコマンドで、サーバ内にマウントされているファイルシステムの一覧と各ファイルシステムの使用状況を表示します。</p>
-<pre><code>Filesystem      Size  Used Avail Use% Mounted on
-none            3.8G     0  3.8G   0% /usr/lib/modules
-・・・</code></pre>
+            <h3>ファイルやディレクトリ操作</h3>
+            <div class="command-section">
+                <p><span class="command">ls</span></p>
+                <div class="description">
+                    <p>ディレクトリ内容の確認を行います。</p>
+                    <ul>
+                        <li>ls -l：詳細な一覧を表示</li>
+                        <li>ls -a：隠しファイルも表示</li>
+                        <li>ls -h：ファイルサイズを人間が読みやすい形式で表示</li>
+                    </ul>
+                </div>
+            </div>
 
-<h2>11.3 メモリとスワップ</h2>
-<p>メインメモリやスワップ領域の利用状況を把握する場合は、<code>free</code> コマンドを使います。この時も <code>-h</code> オプションを付けます。</p>
-<pre><code>$ free -h</code></pre>
-<pre><code>total      used      free      shared  buff/cache  available
-Mem:        7.4Gi    600Mi    6.4Gi    3.0Mi      479Mi    6.6Gi
-Swap:       2.0Gi      0B     2.0Gi</code></pre>
-<p>スワップ領域が常に利用されている場合は、メインメモリが不足しているため、メモリ増設の判断基準となります。</p>
+            <div class="command-section">
+                <p><span class="command">cd</span></p>
+                <div class="description">
+                    <p>ディレクトリの移動を行います。</p>
+                    <ul>
+                        <li>cd ..：一つ上のディレクトリへ移動</li>
+                        <li>cd ~：ホームディレクトリへ移動</li>
+                        <li>cd /：ルートディレクトリへ移動</li>
+                    </ul>
+                </div>
+            </div>
 
-<h2>11.4 実行プロセス</h2>
-<p>実行中のプログラムはプロセスと呼ばれます。プロセスを確認するには、<code>ps</code> コマンドを使います。</p>
-<pre><code>$ ps aux</code></pre>
-<p>これにより実行中のすべてのプロセスが表示されますが、特定のプロセスについて確認したい場合は、<code>less</code> コマンドや <code>grep</code>を併せて使うことを推奨します。</p>
-<pre><code>USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root           1  0.5  0.1 166060 11384 ?        Ss   10:50   0:02 /sbin/init
-root           2  0.0  0.0   2476  1432 ?        Sl   10:50   0:00 /init
-root           6  0.0  0.0   2504  1172 ?        Sl   10:50   0:00 plan9 --control-socket 6 --log-level 4 --
-root          41  0.0  0.1  47744 15488 ?        S<s  10:50   0:00 /lib/systemd/systemd-journald
-root          61  0.0  0.0  22624  6460 ?        Ss   10:50   0:00 /lib/systemd/systemd-udevd
-・・・</code></pre>
+            <div class="command-section">
+                <p><span class="command">pwd</span></p>
+                <div class="description">
+                    <p>現在のディレクトリのパスを表示します。</p>
+                </div>
+            </div>
 
-<h2>11.5 システムモニタリング</h2>
-<p>システムの状態をリアルタイムにモニタリングしたい場合は、<code>top</code> コマンドを使用します。このコマンドは、<code>uptime</code> コマンドや <code>free</code> コマンド、<code>ps</code> コマンドで得られる結果をまとめて表示し、3秒ごとに情報が更新されます。</p>
-<pre><code>$ top</code></pre>
-<pre><code>top - 11:07:48 up 17 min, 1 user, load average: 0.12, 0.03, 0.01
-Tasks: 42 total, 1 running, 41 sleeping, 0 stopped, 0 zombie
-%Cpu(s): 0.0 us, 0.0 sy, 0.0 ni, 99.9 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
-MiB Mem : 7588.3 total, 6699.3 free, 626.8 used, 262.3 buff/cache
-MiB Swap: 2048.0 total, 2048.0 free, 0.0 used. 6731.7 avail Mem
-PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
-1 root   20   0 166060 11384 8280 S  0.7  0.1  0:05.12 systemd
-・・・</code></pre>
+            <div class="command-section">
+                <p><span class="command">mkdir</span></p>
+                <div class="description">
+                    <p>新しいディレクトリを作成します。</p>
+                    <ul>
+                        <li>mkdir -p：親ディレクトリも同時に作成</li>
+                    </ul>
+                </div>
+            </div>
 
-<h2>11.6 サービス管理</h2>
-<p>サービスは、OS本体から切り離し可能な特定の役割や機能を持ったサブシステムです。サービスには、ログ管理やネットワーク、各種サーバプログラムなどがあります。</p>
-<p>サービスの起動や停止を管理するには <code>systemctl</code> コマンドを使用します。</p>
-<pre><code>$ systemctl サブコマンド サービス名</code></pre>
-<p>以下のサブコマンドが利用可能です：</p>
-<ul>
-    <li><code>start</code>: サービスを開始する</li>
-    <li><code>stop</code>: サービスを停止する</li>
-    <li><code>reload</code>: サービスを再起動する（サービスの停止なしで設定を反映させる）</li>
-    <li><code>restart</code>: サービスを再起動する（サービスを停止し設定を反映させる）</li>
-    <li><code>enable</code>: システム起動時にサービスを自動的に開始する</li>
-    <li><code>disable</code>: システム起動時にサービスが自動的に開始しないようにする</li>
-    <li><code>status</code>: サービスの状態を確認する</li>
-</ul>
+            <div class="command-section">
+                <p><span class="command">rm</span></p>
+                <div class="description">
+                    <p>ファイルやディレクトリの削除を行います。</p>
+                    <ul>
+                        <li>rm -r：ディレクトリを再帰的に削除</li>
+                        <li>rm -f：確認なしで強制削除</li>
+                    </ul>
+                </div>
+            </div>
 
-<h2>11.7 スケジュール管理</h2>
-<p>定期的にメンテナンス作業を実施する必要があります。指定したコマンドを定期的に実行する仕組みとして <code>cron</code> があり、<code>crontab</code> コマンドで管理されます。これにより、1日1回や1時間に1回、指定した処理を自動的に実行することが可能です。</p>
-<p>自動実行の最小単位は1分です。</p>
-<pre><code>$ crontab [オプション]</code></pre>
-<p>利用できるオプションの例：</p>
-<ul>
-    <li><code>-e</code>: スケジュール設定を編集する</li>
-    <li><code>-l</code>: スケジュール設定を表示する</li>
-    <li><code>-r</code>: すべてのスケジュール設定を削除する</li>
-</ul>
-<p>スケジュールの書式は以下の通りです：</p>
-<pre><code>分 時 日 月 曜日 実行コマンド</code></pre>
-<p>具体的なスケジュール設定の例：</p>
-<ul>
-    <li><code>3 * * * *</code>: 毎時3分に実行する</li>
-    <li><code>30 23 * * *</code>: 毎日23時30分に実行する</li>
-    <li><code>30 23 1 * *</code>: 毎月1日23時30分に実行する</li>
-    <li><code>30 23 1 1 *</code>: 毎年1月1日23時30分に実行する</li>
-    <li><code>30 23 * * 0</code>: 毎週日曜日23時30分に実行する</li>
-    <li><code>*/5 * * * *</code>: 5分ごとに実行する</li>
-</ul>
-<p>コマンドを加えたスケジュール設定の例：</p>
-<ul>
-    <li><code>* * * * * /usr/bin/uptime >> /tmp/uptime.log</code>: 1分ごとに uptime コマンドを実行し、結果を /tmp/uptime.log に追記する</li>
-</ul>
-<p>また、スケジュール設定ファイルから記述する方法もあります。</p>
-<ul>
-    <li><code>/etc/crontab</code>: システム全体のスケジュール</li>
-    <li><code>/etc/cron.d/</code>: 個別の設定ファイルを格納するディレクトリ</li>
-    <li><code>/etc/cron.hourly/</code>: 1時間ごとに実行される設定ファイルを格納するディレクトリ</li>
-    <li><code>/etc/cron.daily/</code>: 1日ごとに実行される設定ファイルを格納するディレクトリ</li>
-    <li><code>/etc/cron.weekly/</code>: 1週間ごとに実行される設定ファイルを格納するディレクトリ</li>
-    <li><code>/etc/cron.monthly/</code>: 1か月ごとに実行される設定ファイルを格納するディレクトリ</li>
-</ul>
-<p><code>crontab</code> コマンドは実行したユーザの権限下で各コマンドが実行されるため、管理者権限が必要なコマンドをスケジュールとして実行したい場合は、rootユーザに切り替えてから実行する必要があります。</p>
+            <h3>テキスト操作</h3>
+            <div class="command-section">
+                <p><span class="command">cat</span></p>
+                <div class="description">
+                    <p>ファイルの内容を表示します。</p>
+                </div>
+            </div>
 
-<h2>11.8 時刻管理</h2>
-<p>サーバを運用する上で、システムの時刻の正確さは重要です。システムの時刻がずれていると、ログが活用できなくなったり、他のサーバとのやり取りでエラーが生じる可能性があります。Ubuntuでは、時刻管理を <code>timedatectl</code> コマンドで行います。</p>
-<pre><code>$ timedatectl</code></pre>
-<pre><code>Local time: Wed 2024-09-18 15:29:39 JST
-    Universal time: Wed 2024-09-18 06:29:39 UTC
-    RTC time: Wed 2024-09-18 06:29:39
-    Time zone: Asia/Tokyo (JST, +0900)
-    System clock synchronized: yes
-    NTP service: inactive
-    RTC in local TZ: no</code></pre>
-    <p>時刻を自動で設定したい場合は、NTP (Network Time Protocol) を利用します。NTPはインターネット経由で時刻を同期させる仕組みで、<code>timedatectl</code> コマンドで有効化することができます。正しく実行できれば、<code>timedatectl</code> コマンドの実行結果に <code>NTP synchronized: yes</code> と表示されます。</p>
-    <pre><code>$ sudo timedatectl set-ntp true</code></pre>
-    <p>サーバのタイムゾーンを設定する場合は、利用可能なタイムゾーンを確認した後、<code>timedatectl</code> コマンドで設定します。日本の場合は、「<code>Asia/Tokyo</code>」を指定します。</p>
-    <pre><code>$ sudo timedatectl set-timezone Asia/Tokyo</code></pre>
+            <div class="command-section">
+                <p><span class="command">less</span></p>
+                <div class="description">
+                    <p>ファイルの内容をページ送りで表示します。</p>
+                    <ul>
+                        <li>スペース：次のページへ</li>
+                        <li>b：前のページへ</li>
+                        <li>q：終了</li>
+                    </ul>
+                </div>
+            </div>
 
-    </section> -->
+            <div class="command-section">
+                <p><span class="command">grep</span></p>
+                <div class="description">
+                    <p>指定した文字列を含む行を検索します。</p>
+                    <ul>
+                        <li>grep -i：大文字小文字を区別しない</li>
+                        <li>grep -r：ディレクトリ内を再帰的に検索</li>
+                    </ul>
+                </div>
+            </div>
 
-    <section id="section">
-        <h2>参考文献</h2>
-        <ul>
-            <li><a href="https://diagnose-fix.com/topic2-003/">OSのダウンロード</a></li>
-            <li><a href="https://lilaboc.work/archives/29007972.html">日本語のダウンロード</a></li>
-        </ul>
-    </section>
-</body>
+            <div class="command-section">
+                <p><span class="command">vi/vim</span></p>
+                <div class="description">
+                    <p>テキストエディタを起動します。</p>
+                    <p>主な操作モード：</p>
+                    <ul>
+                        <li>ノーマルモード：デフォルトモード、移動や編集コマンドを使用</li>
+                        <li>インサートモード：i キーで入力、ESCで戻る</li>
+                        <li>コマンドモード：: で入力、保存や終了などのコマンドを実行</li>
+                    </ul>
+                    <p>基本的なコマンド：</p>
+                    <ul>
+                        <li>:w - 保存</li>
+                        <li>:q - 終了</li>
+                        <li>:wq - 保存して終了</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="section5">
+            <h2>5. ユーザ管理</h2>
+            <p>Linuxでは、一般的に作業は一般ユーザで行い、管理者権限が必要な作業はrootユーザで行います。すべてをrootユーザで行うと、ミスがあった場合の影響が大きくなるため、異なる目的に応じてユーザを使い分ける必要があります。</p>
+            <ul>
+                <li><strong>一般ユーザ</strong>でのプロンプト末尾は「$」</li>
+                <li><strong>rootユーザ</strong>でのプロンプト末尾は「#」</li>
+            </ul>
+
+            <h3>rootユーザのパスワード設定</h3>
+            <p>初回インストール後、Ubuntuではrootユーザのパスワードは未設定のため、自分で設定する必要があります。</p>
+            <pre><code>$ sudo passwd root</code></pre>
+
+            <h3>一般ユーザの追加・削除とグループの管理</h3>
+            <ul>
+                <li><strong>ユーザの追加</strong>
+                    <img src="new_user_create.png" alt="ユーザーの追加画面">
+                    <p>新規ユーザー作成のコマンドは<code>$ sudo adduser ユーザ名</code>です。設定を進めていくと上記画像のように住所や電話番号を登録するか聞かれますが、ここは任意なので登録しない場合は、Enterキーを押してスキップし構いません。</p>
+                </li>
+                <li><strong>ユーザをグループへ追加</strong>
+                    <p><code>$ sudo usermod -aG グループ名 ユーザ名</code>でグループに追加できます。</p>
+                    <p>
+                        今使っているユーザーがどのようなグループに所属しているかの確認は下記画像のように<code>$ groups グループ名</code>でできます。
+                        <img src="group.png" alt="グループの確認">
+                    </p>
+                </li>
+                <li><strong>削除</strong>
+                    <p>グループからユーザーを削除する際は<code>$ sudo gpasswd -d ユーザ名 グループ名</code>のコマンドで実行できます。またユーザー自体を削除する際は、<code>$ sudo userdel ユーザ名</code>で削除することができます。</p>
+                </li>
+            </ul>
+
+            <h3>ユーザの切り替え</h3>
+            <p>
+                作業に応じて適切なユーザに切り替えるには <code>su</code> コマンドを使用します。
+                <img src="su_result.png" alt="suコマンドの実行結果">
+                <br>
+                特定のユーザーに切り替えるためは上記の画像のように、<code>$ su ユーザ名</code>で切り替えることができます。rootユーザーへの切り替えは、<code>$ su</code>か<code>$ su -</code>で行います。<code>su -</code> を使うと、rootユーザへの切り替え時にホームディレクトリにも移動します。
+            </p>
+
+            <h3>sudoコマンド</h3>
+            <p>
+                管理者権限が必要な操作は、先ほども記述した通りセキュリティ上の観点からrootユーザを使うことは避け、代わりに <code>sudo</code> コマンドを使います。<span style="color: red;"><code>sudo</code> を使用するためには、事前にユーザをsudoグループに追加しておく必要があります。</span>
+                <br>
+                <code>$ sudo コマンド名</code>のコマンドを使用すると、rootユーザのパスワードを知らなくても管理者権限の作業を行うことができるため、Linuxシステムの管理がより安全に行えます。
+            </p>
+        </section>
+
+        <section id="section6">
+            <h2>6. 基本的なサーバ管理</h2>
+            <h3>サーバ負荷</h3>
+            <p>
+                <img src="uptime.png" alt="uptimeコマンドの実行結果">
+                <br>
+                サーバの稼働状況 (負荷)を確認し、十分に稼働できているのかを理解することで、サーバのスペックが十分かどうかの判断ができます。サーバの負荷を確認するには、<code>uptime</code> コマンドを実行します。
+                <br>
+                このコマンドを実行上記の画像二もあるように「load average」という項目が表示されます。左から順に、1分間での負荷、5分間での負荷、15分間での負荷が表示されます。これらの負荷がサーバのCPUコア数を下回る値であれば問題ありません。
+                <br>
+                しかし、コア数を上回る値が持続している場合は、サーバのスペックが不足しているため、増強が必要になります。
+            </p>
+        
+            <h3>ディスク使用状況</h3>
+            <p>ディスクの使用状況は <code>df</code> コマンドを使って確認できます。コマンドを実行する際は、単位が見やすくなる <code>-h</code> オプションを付けると良いでしょう。</p>
+            <pre><code>$ df -h</code></pre>
+            <p>このコマンドで、サーバ内にマウントされているファイルシステムの一覧と各ファイルシステムの使用状況を表示します。</p>
+            <pre><code>Filesystem      Size  Used Avail Use% Mounted on
+            none            3.8G     0  3.8G   0% /usr/lib/modules
+            ・・・</code></pre>
+
+            <h3>メモリとスワップ</h3>
+            <p>メインメモリやスワップ領域の利用状況を把握する場合は、<code>free</code> コマンドを使います。この時も <code>-h</code> オプションを付けます。</p>
+            <pre><code>$ free -h</code></pre>
+            <pre><code>total      used      free      shared  buff/cache  available
+            Mem:        7.4Gi    600Mi    6.4Gi    3.0Mi      479Mi    6.6Gi
+            Swap:       2.0Gi      0B     2.0Gi</code></pre>
+            <p>スワップ領域が常に利用されている場合は、メインメモリが不足しているため、メモリ増設の判断基準となります。</p>
+
+            <h3>実行プロセス</h3>
+            <p>実行中のプログラムはプロセスと呼ばれます。プロセスを確認するには、<code>ps</code> コマンドを使います。</p>
+            <pre><code>$ ps aux</code></pre>
+            <p>これにより実行中のすべてのプロセスが表示されますが、特定のプロセスについて確認したい場合は、<code>less</code> コマンドや <code>grep</code>を併せて使うことを推奨します。</p>
+
+
+            <h3>システムモニタリング</h3>
+            <p>システムの状態をリアルタイムにモニタリングしたい場合は、<code>top</code> コマンドを使用します。このコマンドは、<code>uptime</code> コマンドや <code>free</code> コマンド、<code>ps</code> コマンドで得られる結果をまとめて表示し、3秒ごとに情報が更新されます。</p>
+            <pre><code>$ top</code></pre>
+            <pre><code>top - 11:07:48 up 17 min, 1 user, load average: 0.12, 0.03, 0.01
+            Tasks: 42 total, 1 running, 41 sleeping, 0 stopped, 0 zombie
+            %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni, 99.9 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+            MiB Mem : 7588.3 total, 6699.3 free, 626.8 used, 262.3 buff/cache
+            MiB Swap: 2048.0 total, 2048.0 free, 0.0 used. 6731.7 avail Mem
+            PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+            1 root   20   0 166060 11384 8280 S  0.7  0.1  0:05.12 systemd
+            ・・・</code></pre>
+
+            <h3>サービス管理</h3>
+            <p>サービスは、OS本体から切り離し可能な特定の役割や機能を持ったサブシステムです。サービスには、ログ管理やネットワーク、各種サーバプログラムなどがあります。</p>
+            <p>サービスの起動や停止を管理するには <code>systemctl</code> コマンドを使用します。</p>
+            <pre><code>$ systemctl サブコマンド サービス名</code></pre>
+            <p>以下のサブコマンドが利用可能です：</p>
+            <ul>
+                <li><code>start</code>: サービスを開始する</li>
+                <li><code>stop</code>: サービスを停止する</li>
+                <li><code>reload</code>: サービスを再起動する（サービスの停止なしで設定を反映させる）</li>
+                <li><code>restart</code>: サービスを再起動する（サービスを停止し設定を反映させる）</li>
+                <li><code>enable</code>: システム起動時にサービスを自動的に開始する</li>
+                <li><code>disable</code>: システム起動時にサービスが自動的に開始しないようにする</li>
+                <li><code>status</code>: サービスの状態を確認する</li>
+            </ul>
+
+            <h3>スケジュール管理</h3>
+            <p>定期的にメンテナンス作業を実施する必要があります。指定したコマンドを定期的に実行する仕組みとして <code>cron</code> があり、<code>crontab</code> コマンドで管理されます。これにより、1日1回や1時間に1回、指定した処理を自動的に実行することが可能です。</p>
+            <p>自動実行の最小単位は1分です。</p>
+            <pre><code>$ crontab [オプション]</code></pre>
+            <p>利用できるオプションの例：</p>
+            <ul>
+                <li><code>-e</code>: スケジュール設定を編集する</li>
+                <li><code>-l</code>: スケジュール設定を表示する</li>
+                <li><code>-r</code>: すべてのスケジュール設定を削除する</li>
+            </ul>
+            <p>スケジュールの書式は以下の通りです：</p>
+            <pre><code>分 時 日 月 曜日 実行コマンド</code></pre>
+            <p>具体的なスケジュール設定の例：</p>
+            <ul>
+                <li><code>3 * * * *</code>: 毎時3分に実行する</li>
+                <li><code>30 23 * * *</code>: 毎日23時30分に実行する</li>
+                <li><code>30 23 1 * *</code>: 毎月1日23時30分に実行する</li>
+                <li><code>30 23 1 1 *</code>: 毎年1月1日23時30分に実行する</li>
+                <li><code>30 23 * * 0</code>: 毎週日曜日23時30分に実行する</li>
+                <li><code>*/5 * * * *</code>: 5分ごとに実行する</li>
+            </ul>
+            <p>コマンドを加えたスケジュール設定の例：</p>
+            <ul>
+                <li><code>* * * * * /usr/bin/uptime >> /tmp/uptime.log</code>: 1分ごとに uptime コマンドを実行し、結果を /tmp/uptime.log に追記する</li>
+            </ul>
+            <p>また、スケジュール設定ファイルから記述する方法もあります。</p>
+            <ul>
+                <li><code>/etc/crontab</code>: システム全体のスケジュール</li>
+                <li><code>/etc/cron.d/</code>: 個別の設定ファイルを格納するディレクトリ</li>
+                <li><code>/etc/cron.hourly/</code>: 1時間ごとに実行される設定ファイルを格納するディレクトリ</li>
+                <li><code>/etc/cron.daily/</code>: 1日ごとに実行される設定ファイルを格納するディレクトリ</li>
+                <li><code>/etc/cron.weekly/</code>: 1週間ごとに実行される設定ファイルを格納するディレクトリ</li>
+                <li><code>/etc/cron.monthly/</code>: 1か月ごとに実行される設定ファイルを格納するディレクトリ</li>
+            </ul>
+            <p><code>crontab</code> コマンドは実行したユーザの権限下で各コマンドが実行されるため、管理者権限が必要なコマンドをスケジュールとして実行したい場合は、rootユーザに切り替えてから実行する必要があります。</p>
+
+            <h3>時刻管理</h3>
+            <p>サーバを運用する上で、システムの時刻の正確さは重要です。システムの時刻がずれていると、ログが活用できなくなったり、他のサーバとのやり取りでエラーが生じる可能性があります。Ubuntuでは、時刻管理を <code>timedatectl</code> コマンドで行います。</p>
+            <pre><code>$ timedatectl</code></pre>
+            <pre><code>Local time: Wed 2024-09-18 15:29:39 JST
+                Universal time: Wed 2024-09-18 06:29:39 UTC
+                RTC time: Wed 2024-09-18 06:29:39
+                Time zone: Asia/Tokyo (JST, +0900)
+                System clock synchronized: yes
+                NTP service: inactive
+                RTC in local TZ: no</code></pre>
+                <p>時刻を自動で設定したい場合は、NTP (Network Time Protocol) を利用します。NTPはインターネット経由で時刻を同期させる仕組みで、<code>timedatectl</code> コマンドで有効化することができます。正しく実行できれば、<code>timedatectl</code> コマンドの実行結果に <code>NTP synchronized: yes</code> と表示されます。</p>
+                <pre><code>$ sudo timedatectl set-ntp true</code></pre>
+                <p>サーバのタイムゾーンを設定する場合は、利用可能なタイムゾーンを確認した後、<code>timedatectl</code> コマンドで設定します。日本の場合は、「<code>Asia/Tokyo</code>」を指定します。</p>
+                <pre><code>$ sudo timedatectl set-timezone Asia/Tokyo</code></pre>
+        </section>
+
+        <section id="section7">
+            <h2>Webサーバー構築</h2>        
+                <h3>ソフトウェアのインストール</h3>
+                <p>サーバ構築に必要なソフトウェアをインストールするにはソフトウェア（パッケージ）マネージャであるaptコマンドを利用します。</p>
+                <div class="command-block">
+                    <h4>コマンドの書式</h4>
+                    <pre><code>$ sudo apt install パッケージ名</code></pre>
+                </div>
+
+                <h3>サーバソフトウェアのインストール:Apache HTTP Server</h3>
+                    <h4>WebサーバとWebブラウザの関係</h4>
+                    <p>Webブラウザには、Edge、Chrome、Safari、Firefoxなど様々な種類がありますが、今回使用するUbuntuでは標準でFirefoxがインストールされています。Webブラウザは、Webサーバとの通信を試み、Webページのコンテンツ情報を取得しブラウザ上に表示してくれます。このとき、ブラウザとサーバ間ではHTTP（Hypertext Transfer Protocol）というプロトコルを使って通信が行われています。</p>
+
+                    <h4>Apache HTTP Serverのインストール</h4>
+                    <p>Apache HTTP Server（以下、Apache）はApache Software Foundationが開発しているオープンソースソフトウェアのうちの1つで、Linux環境におけるWebサーバとして高いシェアを持っています。は、今回はApacheをインストールしサーバ構築を試みます。</p>
+
+                    <div class="command-block">
+                        <h5>Apacheのインストール</h5>
+                        <pre><code>$ sudo apt update # インストール前にパッケージの更新
+    $ sudo apt -y install apache2 # Apache HTTP Server のインストール</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h5>Apacheの起動</h4>
+                        <pre><code>$ sudo systemctl start apache2 # Apacheの起動
+    $ sudo systemctl enable apache2 # Apacheの自動起動の有効化
+    $ sudo systemctl status apache2 # Apacheのステータス</code></pre>
+                    </div>
+
+                    <div class="note">
+                        <p>最後に、ブラウザから「http://&lt;サーバのIPアドレス&gt;」にアクセスし、Apacheのウェルカムページが表示されれば完了です。もし、サーバ上でWebサーバにアクセスする場合、「http://localhost」と検索することで表示できます。</p>
+                    </div>
+
+                <h3>Apacheの設定</h3>
+                <p>インストールしたApacheの設定ファイルは「/etc/apache2/apache2.conf」や「/etc/apache2/sites-available/000-default.conf」で管理するのが一般的です。</p>
+                    <h4>主なディレクティブ</h4>
+                        <ul>
+                            <li><strong>ServerRoot</strong>：設定ファイル等を配置するトップディレクトリ（/etc/apache2）</li>
+                            <li><strong>Listen</strong>：Apacheが受け付けるポート番号（80番）</li>
+                            <li><strong>User</strong>：Apacheの実行ユーザ（www-data）</li>
+                            <li><strong>Group</strong>：Apacheの実行グループ（www-data）</li>
+                            <li><strong>ServerAdmin</strong>：Apacheの管理者（webmaster@localhost）</li>
+                            <li><strong>ServerName</strong>：Webサーバ名（www.example.com）</li>
+                            <li><strong>DocumentRoot</strong>：Webページを配置するディレクトリ（/var/www/html）</li>
+                            <li><strong>DirectoryIndex</strong>：サーバ名でアクセスしたときに表示するファイル（index.html）</li>
+                        </ul>
+
+                <h3>DocumentRootとDirectoryIndex</h3>
+                    <p>DocumentRootは、Webで公開するコンテンツを格納しているトップディレクトリを指し示していまし。つまり、「http://&lt;サーバのIPアドレス&gt;にアクセスする = /var/www/htmlにアクセスする」ということになります。例えば、「/var/www/html/index.html」にアクセスする場合は「http://&lt;サーバのIPアドレス&gt;/index.html」と記述すればいいということです。</p>
+                    <p>DirectoryIndexは、表示するWebページを指定せずに「http://&lt;サーバのIPアドレス&gt;」とアクセスしたときに表示するファイルを指し示します。</p>
+
+                <h3>仮想ホストの作成</h3>
+                    <p>Apacheをインストールした直後は、「/etc/apache2/sites-available/000-default.conf」がデフォルトの仮想ホストとして設定されています。デフォルトの仮想ホストの設定ファイルを残したまま異なる仮想ホストを作りたい場合は、「/etc/apache2/sites-available/」直下に新たな設定ファイルを作成します。</p>
+
+                    <div class="command-block">
+                        <h4>仮想ホストの設定ファイルの作成</h4>
+                        <pre><code>$ sudo touch /etc/apache2/sites-available/ファイル名.conf</code></pre>
+                    </div>
+
+                    <div class="config-example">
+                        <h4>設定ファイルの編集</h4>
+                        <pre><code>&lt;VirtualHost *:80&gt;
+                ServerAdmin webmaster@localhost
+                DocumentRoot ディレクトリパス
+                DirectoryIndex ファイル名
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+            &lt;/VirtualHost&gt;</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>ディレクトリの作成</h4>
+                        <pre><code>$ sudo mkdir -p ディレクトリパス</code></pre>
+                    </div>
+
+                    <div class="code-example">
+                        <h4>ファイルの作成とサンプルコードの記述</h4>
+                        <pre><code>$ sudo touch ディレクトリパス/ファイル名
+            $ sudo vi ディレクトリパス/ファイル名
+
+            &lt;html&gt;
+            &lt;body&gt;
+            &lt;h1&gt;Welcome to my page&lt;/h1&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>仮想ホストの有効化</h4>
+                        <pre><code>$ sudo a2ensite ファイル名.conf # 仮想ホストの有効化
+            $ sudo systemctl reload apache2 # 有効化した仮想ホストをサーバに反映</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>デフォルトの仮想ホストの無効化</h4>
+                        <pre><code>$ sudo a2dissite 000-default.conf # 仮想ホストの無効化
+            $ sudo systemctl reload apache2 # 有効化した仮想ホストをサーバに反映</code></pre>
+                    </div>
+
+                <h3>ファイアウォールの設定</h3>
+                    <p>Ubuntuでは、ファイアウォールの設定にufwコマンドを利用します。構築したWebサーバへのアクセスを許可するには以下のコマンドを実行します。</p>
+
+                    <h4>ファイアウォールの有効化とポート開放</h4>
+                        <pre><code>$ sudo ufw enable # ファイアウォールの有効化
+    $ sudo ufw allow 'Apache' # 80番ポートの開放
+    $ sudo ufw status</code></pre>
+                    <div class="status-output">
+                        <p>Status: active</p>
+                        <table>
+                            <tr>
+                                <th>To</th>
+                                <th>Action</th>
+                                <th>From</th>
+                            </tr>
+                            <tr>
+                                <td>Apache</td>
+                                <td>ALLOW</td>
+                                <td>Anywhere</td>
+                            </tr>
+                            <tr>
+                                <td>Apache (v6)</td>
+                                <td>ALLOW</td>
+                                <td>Anywhere (v6)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="port-opening">
+                        <h4>Apacheに関するポート開放（補足）</h4>
+                        <div class="command-block">
+                            <pre><code># 80番ポートの開放
+            $ sudo ufw allow 'Apache'
+            $ sudo ufw allow 80/tcp
+
+            # 443番ポートの開放
+            $ sudo ufw allow 'Apache Secure'
+            $ sudo ufw allow 443/tcp
+
+            # 80番と443番ポートの同時開放
+            $ sudo ufw allow 'Apache Full'</code></pre>
+                        </div>
+                    </div>
+
+                <h3>パスワード認証の設定</h3>
+                    <p>通常、何も設定していない場合はアクセスすることでWebページの閲覧ができます。しかし、特定のユーザのみが閲覧できるWebページを作成しなければならない場合も存在します。最新バージョンでは、apache2のインストールに含まれており、apache2-utilsを別途インストールする必要がないです。ただし、バージョンや環境によっては含まれていない可能性もあるため、念のため実行しておきましょう。</p>
+            
+
+                    <div class="command-block">
+                        <h4>apache2-utilsパッケージのインストール</h4>
+                        <pre><code>$ sudo apt install apache2-utils</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>ユーザの登録</h4>
+                        <pre><code>$ sudo htpasswd -c /etc/apache2/.htpasswd ユーザ名 # 初回
+            $ sudo htpasswd /etc/apache2/.htpasswd ユーザ名 # 次回以降</code></pre>
+                    </div>
+
+                    <div class="config-example">
+                        <h4>設定ファイルの編集</h4>
+                        <pre><code>&lt;Directory "認証を利用するディレクトリパス"&gt;
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+            &lt;/Directory&gt;</code></pre>
+                    </div>
+
+                <h3>アクセスログ</h3>
+                    <p>Linuxのシステムログとは別に、Apacheで管理されるログの一つにアクセスログがあります。アクセスログでは、以下のような情報が記録されます。</p>
+                    <ul>
+                        <li>リクエストされたURL</li>
+                        <li>アクセス元のIPアドレス</li>
+                        <li>ユーザエージェント（ブラウザの種類など）</li>
+                        <li>ステータスコード</li>
+                        <li>リクエストのタイムスタンプ</li>
+                    </ul>
+
+                    <div class="log-example">
+                        <h4>アクセスログ例1</h4>
+                        <pre><code>10.20.227.149 - webuser [11/Aug/2023:19:21:56 +0900] "GET /htmltest.html HTTP/1.1" 200 95 "-" "Mozilla/5.0" (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0"</code></pre>
+                    </div>
+
+                    <h4>ステータスコード</h4>
+                    <ul class="status-codes">
+                        <li><strong>200</strong> (OK)：リクエスト成功</li>
+                        <li><strong>401</strong> (Unauthorized)：ユーザ認証が必要なページでリクエスト失敗</li>
+                        <li><strong>403</strong> (Forbidden)：アクセスが禁止されている</li>
+                        <li><strong>404</strong> (Not Found)：リクエストされたページが存在しない</li>
+                        <li><strong>500</strong> (Internal Server Error)：サーバ内部でエラーが発生</li>
+                    </ul>
+
+                <h3>エラーログ</h3>
+                    <p>Apacheでは、アクセスログ以外にも、サーバ内部の処理に関するエラーログが記録されます。エラーログはデフォルトでは、/var/log/apache2/error.logに記録されます。</p>
+
+                    <div class="log-example">
+                        <h4>エラーログ例1</h4>
+                        <pre><code>[Fri Aug 11 19:19:55.939089 2023] [autoindex:error] [pid 1453:tid 1647] [client 10.20.227.149:60226] AH01276: Cannot serve directory /var/www/html/: No matching DirectoryIndex (index.html) found, and server-generated directory index forbidden by Options directive</code></pre>
+                    </div>
+
+                    <div class="log-example">
+                        <h4>エラーログ例2</h4>
+                        <pre><code>[Fri Aug 11 19:22:34.316445 2023] [auth_basic:error] [pid 1459] [client 10.20.227.149:60226] AH01618: user webusr not found: /</code></pre>
+                    </div>
+        </section>
+
+        <section id="section8">
+            <h2>SSHの設定</h2>
+                <h3>SSH（Secure Shell）</h3>
+                <p>サーバ管理・運用を行う上で、SSHを利用する機会は多くなります。SSHは、リモートホスト間の通信を安全に行うための仕組みです。認証機能や暗号化を用いて、サーバのリモート操作やファイル転送を行う場合に利用されます。</p>
+
+                <h3>認証の種類</h3>
+                    <h4>ホスト認証</h4>
+                        <p>接続先のホストの正当性を確認するための仕組みであり、意図しないサーバへの接続による危険を排除する目的があります。SSH接続時に、サーバから固有のホスト認証鍵（公開鍵）がクライアントに送付され、クライアントが保有しているサーバのホスト認証鍵と比較します。初回の接続時にはクライアント側はホスト認証鍵を保有していないため、サーバから送付されるホスト認証鍵を登録する必要があります。</p>
+
+                    <h4>ユーザ認証</h4>
+                    <table class="auth-comparison">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>パスワード認証</th>
+                                <th>公開鍵認証</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>認証に要求される要素</td>
+                                <td>
+                                    <ul>
+                                        <li>ユーザ名</li>
+                                        <li>パスワード</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>ユーザ名</li>
+                                        <li>パスフレーズ</li>
+                                        <li>秘密鍵</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>セキュリティ</td>
+                                <td>総当たり攻撃に対して脆弱</td>
+                                <td>秘密鍵の流出がない限り安全</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                <h3>SSHサーバの構築</h3>
+                    <h4>SSHのインストール</h4>
+                        <p>UbuntuでSSHサーバを構築する場合は、OpenSSHを利用します。</p>
+        
+                        <div class="command-block">
+                            <h5>OpenSSHのインストール</h5>
+                            <pre><code>$ sudo apt install openssh-server</code></pre>
+                        </div>
+        
+                        <div class="command-block">
+                            <h5>OpenSSHの起動</h5>
+                            <pre><code>$ sudo systemctl start ssh
+            $ sudo systemctl enable ssh
+            $ sudo systemctl status ssh</code></pre>
+                        </div>
+        
+                <h3>ポート番号の設定</h3>
+                    <div class="command-block">
+                        <h4>設定ファイルのバックアップ作成</h4>
+                        <pre><code>$ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config_backup</code></pre>
+                    </div>
+        
+                    <div class="config-example">
+                        <h4>ポート番号の設定パラメータ</h4>
+                        <pre><code>Port 任意のポート番号</code></pre>
+                    </div>
+        
+                    <div class="command-block">
+                        <h4>ファイアウォールの設定</h4>
+                        <pre><code>$ sudo ufw allow 任意のポート番号/tcp</code></pre>
+                    </div>
+        
+                <h3>ログインの制限</h3>
+                    <div class="config-example">
+                        <h4>rootログインの設定パラメータ</h4>
+                        <pre><code>PermitRootLogin no</code></pre>
+                    </div>
+        
+                    <div class="config-example">
+                        <h4>許可ユーザの設定パラメータ</h4>
+                        <pre><code>AllowUsers ユーザ名</code></pre>
+                    </div>
+        
+                <h3>SSHログイン</h3>
+                    <div class="command-block">
+                        <h4>コマンドの書式</h4>
+                        <pre><code>$ ssh ユーザ名@ホスト名（もしくはIPアドレス） -p ポート番号</code></pre>
+                    </div>
+        
+                    <div class="note">
+                        <h4>初回接続時の注意</h4>
+                        <p>初回接続時には、サーバのホスト認証鍵（公開鍵）の登録を行うかどうかの確認をされます。接続先のサーバが正しい場合は、「yes」と入力してください。</p>
+                        <pre><code>The authenticity of host 'ホストIPアドレス (ホスト名)' can't be established.
+        ED25519 key fingerprint is SHA256:npjwO0VdD1oDSPJJFnTKIdSqDflS4xIrPFoNpN1fkJI.
+        This key is not known by any other names
+        Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</code></pre>
+                    </div>
+        
+                <h3>段階認証の利用</h3>
+                    <p>設定の手順は以下の通りになる：</p>
+                    <ol>
+                        <li>SSH接続を利用するクライアントPCの公開鍵・秘密鍵を生成する</li>
+                        <li>生成したクライアントPCの公開鍵をサーバに登録する</li>
+                        <li>サーバのSSH設定ファイルを編集する</li>
+                        <li>SSH接続のテストをする</li>
+                    </ol>
+        
+                <h3>クライアントの公開鍵・秘密鍵生成</h3>
+                    <div class="command-block">
+                        <h4>コマンドの書式</h4>
+                        <pre><code>$ ssh-keygen -t 暗号化アルゴリズム -f ファイル名</code></pre>
+                    </div>
+        
+                    <div class="note">
+                        <p>ssh-keygenでは、「dsa」、「rsa」、「ecdsa」、「ed25519」が選択できるが、「dsa」は脆弱であるため、今後OpenSSHから削除される予定となってます。</p>
+                    </div>
+        
+                    <div class="example">
+                        <h4>鍵生成の例</h4>
+                        <pre><code>$ ssh-keygen -t ed25519 -f ./.ssh/id_ed25519</code></pre>
+                    </div>
+        
+                <h3>公開鍵の登録</h3>
+                    <div class="command-block">
+                        <h4>公開鍵の登録</h4>
+                        <pre><code>$ cat $HOME\.ssh\公開鍵のファイル名 | ssh ユーザ名@ホスト名（もしくはIPアドレス） -p ポート番号 "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"</code></pre>
+                    </div>
+        
+                <h3>設定ファイルの編集</h3>
+                    <div class="config-example">
+                        <h4>2段階認証のパラメータ追加</h4>
+                        <pre><code>AuthenticationMethods publickey,password</code></pre>
+                    </div>
+        
+                <h3>接続テスト</h3>
+                    <p>設定が完了したら、以下の手順でテストを行う：</p>
+                    <ol>
+                        <li>生成した秘密鍵を削除した状態でSSH接続をし、通信が許可されないことを確認</li>
+                        <li>秘密鍵をもとに戻した状態で接続し、パスワードが要求されることを確認</li>
+                    </ol>
+        </section>
+
+        <section id="section9">
+            <h2>Dockerの設定</h2>
+                <h3>Dockerとは</h3>
+                    <p>Dockerは仮想化技術の一つであるコンテナ型仮想化を提供するソフトウェアです。物理マシン上で動作し、コンテナと呼ばれる実行環境を管理します。Oracle VM VirtualBoxやVMware Fusionなど、従来のホスト型仮想化と異なり、構築されるコンテナにはゲストOSを必要としないという特徴があります。</p>
+
+                <h3>利点</h3>
+                    <ul>
+                        <li>リソース効率が良い</li>
+                        <li>計算処理のオーバーヘッドが少ない</li>
+                        <li>イメージを利用して手軽に環境構築が可能</li>
+                        <li>環境を汚すことなく構築可能</li>
+                    </ul>
+
+                <div class="note">
+                    <p><strong>注意：</strong>ホストOSがLinuxであることが要求されるため、WindowsではWindows Subsystem for Linux（WSL）などの仮想環境が必要です。</p>
+                </div>
+
+                <h3>Dockerのインストール</h3>
+                    <p>UbuntuでDockerをインストールする手順を説明します。この手順はDocker公式ドキュメントに準拠しています。</p>
+
+                    <div class="command-block">
+                        <h3>Dockerのインストール手順</h3>
+                        <pre><code># Add Docker's official GPG key:
+        $ sudo apt-get update
+        $ sudo apt-get install ca-certificates curl
+        $ sudo install -m 0755 -d /etc/apt/keyrings
+        $ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        $ sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        # Add the repository to Apt sources:
+        $ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        $ sudo apt-get update
+        $ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>インストール確認</h4>
+                        <pre><code>$ sudo docker --version
+        $ sudo systemctl status docker</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>ユーザーの追加とDockerの再起動</h4>
+                        <pre><code>$ sudo usermod -aG docker $USER
+        $ newgrp docker</code></pre>
+                    </div>
+
+                <h3>Dockerの基本知識</h3>
+                    <div class="docker-objects">
+                        <p>Dockerで操作可能な主な対象</p>
+                        <ul>
+                            <li><strong>Container（コンテナ）</strong></li>
+                            <li>Image（イメージ）</li>
+                            <li>Volume（ボリューム）</li>
+                            <li>Network（ネットワーク）</li>
+                        </ul>
+                    </div>
+
+                <h3>コンテナのプロセスとPID1</h3>
+                    <p>コンテナはコマンドを実行するための環境です。プロセスの停止がそのほか全てのプロセスの停止につながるようなプロセスのことをPID1と呼びます。</p>
+
+                <h3>コンテナのステータス</h3>
+                    <div class="status-list">
+                        <ul>
+                            <li><strong>created</strong>: コンテナは作成されているが、PID1は存在しない</li>
+                            <li><strong>running</strong>: コンテナが起動しており、PID1も存在する</li>
+                            <li><strong>paused</strong>: コンテナが一時停止されており、PID1も停止している</li>
+                            <li><strong>restarting</strong>: コンテナが再起動しており、running状態に遷移する</li>
+                            <li><strong>exited</strong>: コンテナが終了されており、PID1は存在しない</li>
+                            <li><strong>dead</strong>: コンテナが終了に失敗し、running状態に復旧できない</li>
+                            <li><strong>removing</strong>: コンテナが削除されている</li>
+                        </ul>
+                    </div>
+
+                <h3>コンテナのコマンド一覧</h3>
+                        <div class="category">
+                            <h4>確認系コマンド</h4>
+                            <ul>
+                                <li><code>ls</code>: コンテナの一覧を表示</li>
+                                <li><code>inspect</code>: コンテナの詳細情報を表示</li>
+                                <li><code>port</code>: ポートの割り当て状況を表示</li>
+                                <li><code>top</code>: 実行中のプロセスを表示</li>
+                                <li><code>stats</code>: リソース情報を表示</li>
+                                <li><code>diff</code>: 変更されたファイル一覧を表示</li>
+                            </ul>
+                        </div>
+
+                        <div class="category">
+                            <h4>変更系コマンド</h4>
+                            <ul>
+                                <li><code>create</code>: コンテナを作成</li>
+                                <li><code>start</code>: コンテナを起動</li>
+                                <li><code>pause/unpause</code>: コンテナの一時停止/解除</li>
+                                <li><code>restart</code>: コンテナを再起動</li>
+                                <li><code>stop</code>: コンテナを停止</li>
+                                <li><code>kill</code>: コンテナを強制停止</li>
+                                <li><code>rm</code>: コンテナを削除</li>
+                            </ul>
+                        </div>
+
+                        <div class="category">
+                            <h4>命令系コマンド</h4>
+                            <ul>
+                                <li><code>logs</code>: コンテナのログを表示</li>
+                                <li><code>exec</code>: 起動中のコンテナでコマンドを実行</li>
+                                <li><code>attach</code>: ターミナルの入出力を対応付け</li>
+                                <li><code>commit</code>: イメージを作成</li>
+                                <li><code>cp</code>: ファイルをコピー</li>
+                            </ul>
+                        </div>
+
+                <h3>Dockerを用いたWebサーバの構築</h3>
+                    <div class="command-block">
+                        <h4>Webサーバ管理用のディレクトリ作成</h4>
+                        <pre><code>$ mkdir -p ~/ディレクトリ名/htdocs ~/ディレクトリ名/conf</code></pre>
+                    </div>
+
+                    <div class="command-block">
+                        <h4>httpdコンテナの起動</h4>
+                        <pre><code>$ cd ~/ディレクトリ名
+    $ docker run -dit --name my-apache-app -p 8080:80 \
+        -v ./htdocs:/usr/local/apache2/htdocs/ \
+        -v ./conf:/usr/apache2/conf httpd:2.4</code></pre>
+                    </div>
+        </section>
+
+        <section id="section">
+            <h2>参考文献</h2>
+            <ul>
+                <li><a href="https://diagnose-fix.com/topic2-003/">OSのダウンロード</a></li>
+                <li><a href="https://lilaboc.work/archives/29007972.html">日本語のダウンロード</a></li>
+            </ul>
+        </section>
+    </body>
 </html>
