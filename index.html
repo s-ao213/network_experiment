@@ -5,9 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>サーバー構築実験の手順書</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=M+PLUS+1:wght@100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </head>
     <body>
         <h1>サーバー構築実験の手順書</h1>
+
+        <button class="scroll-top" aria-label="ページトップへスクロール"></button>
 
         <div class="toc">
             <h2>目次</h2>
@@ -27,32 +33,86 @@
         <section id="section1">
             <h2>目的と環境</h2>
             <p>
-                本実習では、基本的なサーバー構築の手順を学び、Linuxの基礎知識とコマンド操作を習得することを目的とします。
+                <h3>目的</h3>
+                今回は、基本的なサーバー構築の手順を学び、Linuxの基礎知識とコマンド操作を習得することを目的とします。
+            </p>
+            <p>
+                <h3>環境</h3>
+                    <ul>
+                        <li>ハードウェア:ASUSTeK COMPUTER INC. VivoBook 12_ASUS Laptop E203MA</li>
+                        <li>メモリ:4.0GiB</li>
+                        <li>プロセッサー:Intel® Celeron(R) N4000 CPU @ 1.10GHz ×2</li>
+                        <li>ディスク容量:62.5GB</li>
+                        <li>OS: Ubuntu 22.04 LTS</li>
+                        <li>ビット数:64bit</li>
+                    </ul>
             </p>
         </section>
 
-        <section id="section2">        
-            <div>
-                <h2 id="section2">OSのダウンロードとインストール</h2>
+        <section id="section2" class="install-guide">
+            <h2>OSのダウンロードとインストール</h2>
+            
+            <article class="install-step">
                 <h3>UbuntuのインストールUSBメディアを作成する</h3>
-                <p><a href="https://www.ubuntulinux.jp/download">Ubuntu Japanese Team</a>にアクセスし、インストールイメージをダウンロードします。このとき、日本語Remixのイメージの方が日本語化が多くされているのでRemixのイメージがおすすめです。</p>
-                <p>
-                    次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。
-                    <img src="rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
-                    一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。
-                    <h5>注意</h5>
-                    ユーザーアカウント制御のダイアログが表示された場合は、「OK」をクリックしてください。また初回のみ、Rufusの更新ポリシーに関するダイアログが表示されるので確認してください。
-                    起動したらまず<span>USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。
-                    <img src="rufus_setting.png" alt="rufusで設定している様子">
-                    <h5>注意</h5>
-                    途中でダウンロードを求めてくるダイヤログが表示されたときは、「はい」をクリックしてください。
-                    続いて、ハイブリッドISOイメージの検出のダイアログが表示されるので推奨のまま「OK」を押してください。
-                    最後に警告のダイアログが表示されますので、作成するUSBメディアが正しいかを確認して、再度OKを押すと、ファイルのコピーが始まります。
-                    状態が準備完了になったら閉じるを押してください。
-                </p>
-            <h3>作成したインストールUSBメディアからUbuntsuを起動する</h3>
-            <p>USBメディアを指した状態でASUSを起動すると、選択画面が表示されるので一番上の<code>*Try or Install Ubuntsu</code>を選択しEnterキーでを押すとようこそと書かれた画面に移動します。そこで「Ubuntsuをインストール」を選択して、キーボードのレイアウトは日本語（Japanese）を選択します。無線は現状使わないので設定しなくても大丈夫です。そのまま進めていくと、アップデートとほかのソフトウェアというページに行きます。そこでは初期設定の通常のインストールを選択し、そのまま次に進みます。インストールの種類は、過去のデータが残っている場合は、一から作成したいので、ディスクを削除してUbuntsuをインストールを選択します。そのあとも初期設定どおり続けていきユーザーIDなども登録すると、インストールが始まります。インストールが終わると再起動を行うように指示が出るので、適宜行ってください。以上でUbuntsuのインストール作業は終了です。</p>
-            </div>    
+                
+                <div class="step-content">
+                    <div class="download-instructions">
+                        <p><a href="https://www.ubuntulinux.jp/download">Ubuntu Japanese Team</a>にアクセスし、インストールイメージをダウンロードします。このとき、日本語Remixのイメージの方が日本語化が多くされているのでRemixのイメージがおすすめです。</p>
+                    </div>
+        
+                    <div class="rufus-instructions">
+                        <p>次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。</p>
+                        
+                        <div class="image-container">
+                            <img src="/img/rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
+                            <p class="image-caption">一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。</p>
+                        </div>
+        
+                        <div class="warning-box">
+                            <h5>注意</h5>
+                            <p>ユーザーアカウント制御のダイアログが表示された場合は、「OK」をクリックしてください。また初回のみ、Rufusの更新ポリシーに関するダイアログが表示されるので確認してください。</p>
+                        </div>
+        
+                        <div class="step-instructions">
+                            <p>起動したらまず<span class="highlight">USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。</p>
+                            
+                            <div class="image-container">
+                                <img src="/img/rufus_setting.png" alt="rufusで設定している様子">
+                            </div>
+        
+                            <div class="warning-box">
+                                <h5>注意</h5>
+                                <ol class="warning-steps">
+                                    <li>途中でダウンロードを求めてくるダイヤログが表示されたときは、「はい」をクリックしてください。</li>
+                                    <li>続いて、ハイブリッドISOイメージの検出のダイアログが表示されるので推奨のまま「OK」を押してください。</li>
+                                    <li>最後に警告のダイアログが表示されますので、作成するUSBメディアが正しいかを確認して、再度OKを押すと、ファイルのコピーが始まります。</li>
+                                    <li>状態が準備完了になったら閉じるを押してください。</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
+            <article class="install-step">
+                <h3>作成したインストールUSBメディアからUbuntuを起動する</h3>
+                
+                <div class="installation-steps">
+                    <ol class="main-steps">
+                        <li>USBメディアを指した状態でASUSを起動すると、選択画面が表示されるので一番上の<code>*Try or Install Ubuntu</code>を選択しEnterキーを押す</li>
+                        <li>「Ubuntuをインストール」を選択</li>
+                        <li>キーボードのレイアウトは日本語（Japanese）を選択
+                            <p class="note">※無線は現状使わないので設定しなくても大丈夫です。</p>
+                        </li>
+                        <li>アップデートとほかのソフトウェアの画面では、初期設定の通常のインストールを選択</li>
+                        <li>インストールの種類では、「ディスクを削除してUbuntuをインストール」を選択
+                            <p class="note">※過去のデータが残っている場合は、一から作成するためこのオプションを選びます</p>
+                        </li>
+                        <li>初期設定に従って進め、ユーザーIDなどを登録</li>
+                        <li>インストールが完了したら、指示に従って再起動を実行</li>
+                    </ol>
+                </div>
+            </article>
         </section>
 
         <section id="section3">
@@ -64,35 +124,6 @@
                 低価格なコンピュータでも動作でき、無償で入手・利用できることから広く採用されています。
                 AndroidやRaspberry Piなども、LinuxをベースOSとして採用しています。
             </p>
-
-            <h3>Linuxディストリビューション</h3>
-            <div class="important">
-                <p>ディストリビューションの主な構成要素：</p>
-                <ul>
-                    <li>カーネル</li>
-                    <li>シェル</li>
-                    <li>ユーザインターフェース</li>
-                    <li>インストーラ</li>
-                </ul>
-            </div>
-
-            <h4>主なディストリビューション</h4>
-            <ul>
-                <li>Red Hat系
-                    <ul>
-                        <li>Red Hat Enterprise Linux</li>
-                        <li>CentOS</li>
-                        <li>Rocky Linux</li>
-                    </ul>
-                </li>
-                <li>Debian系
-                    <ul>
-                        <li>Debian GNU/Linux</li>
-                        <li>Ubuntu</li>
-                        <li>Linux Mint</li>
-                    </ul>
-                </li>
-            </ul>
         </section>
 
         <section id="section4">
@@ -204,7 +235,7 @@
 
         <section id="section5">
             <h2>5. ユーザ管理</h2>
-            <p>Linuxでは、一般的に作業は一般ユーザで行い、管理者権限が必要な作業はrootユーザで行います。すべてをrootユーザで行うと、ミスがあった場合の影響が大きくなるため、異なる目的に応じてユーザを使い分ける必要があります。</p>
+            <p>Linuxでは、基本的に一般ユーザを使い、管理者権限が必要な場合はrootユーザで作業を行います。すべての作業でrootユーザで行うと、ミスがあった場合の影響が大きくなるため、異なる目的に応じてユーザを使い分ける必要があります。</p>
             <ul>
                 <li><strong>一般ユーザ</strong>でのプロンプト末尾は「$」</li>
                 <li><strong>rootユーザ</strong>でのプロンプト末尾は「#」</li>
@@ -217,14 +248,14 @@
             <h3>一般ユーザの追加・削除とグループの管理</h3>
             <ul>
                 <li><strong>ユーザの追加</strong>
-                    <img src="new_user_create.png" alt="ユーザーの追加画面">
-                    <p>新規ユーザー作成のコマンドは<code>$ sudo adduser ユーザ名</code>です。設定を進めていくと上記画像のように住所や電話番号を登録するか聞かれますが、ここは任意なので登録しない場合は、Enterキーを押してスキップし構いません。</p>
+                    <img src="/img/new_user_create.png" alt="ユーザーの追加画面">
+                    <p>新規ユーザー作成のコマンドは<code>$ sudo adduser ユーザ名</code>です。設定を進めていくと上記画像のように住所や電話番号を登録するか聞かれますが、ここは任意なので登録しない場合は、Enterキーを押してスキップしても構いません。</p>
                 </li>
                 <li><strong>ユーザをグループへ追加</strong>
                     <p><code>$ sudo usermod -aG グループ名 ユーザ名</code>でグループに追加できます。</p>
                     <p>
                         今使っているユーザーがどのようなグループに所属しているかの確認は下記画像のように<code>$ groups グループ名</code>でできます。
-                        <img src="group.png" alt="グループの確認">
+                        <img src="/img/group.png" alt="グループの確認">
                     </p>
                 </li>
                 <li><strong>削除</strong>
@@ -235,7 +266,7 @@
             <h3>ユーザの切り替え</h3>
             <p>
                 作業に応じて適切なユーザに切り替えるには <code>su</code> コマンドを使用します。
-                <img src="su_result.png" alt="suコマンドの実行結果">
+                <img src="img/su_result.png" alt="suコマンドの実行結果">
                 <br>
                 特定のユーザーに切り替えるためは上記の画像のように、<code>$ su ユーザ名</code>で切り替えることができます。rootユーザーへの切り替えは、<code>$ su</code>か<code>$ su -</code>で行います。<code>su -</code> を使うと、rootユーザへの切り替え時にホームディレクトリにも移動します。
             </p>
@@ -252,48 +283,35 @@
             <h2>6. 基本的なサーバ管理</h2>
             <h3>サーバ負荷</h3>
             <p>
-                <img src="uptime.png" alt="uptimeコマンドの実行結果">
+                <img src="img/uptime.png" alt="uptimeコマンドの実行結果">
                 <br>
                 サーバの稼働状況 (負荷)を確認し、十分に稼働できているのかを理解することで、サーバのスペックが十分かどうかの判断ができます。サーバの負荷を確認するには、<code>uptime</code> コマンドを実行します。
                 <br>
-                このコマンドを実行上記の画像二もあるように「load average」という項目が表示されます。左から順に、1分間での負荷、5分間での負荷、15分間での負荷が表示されます。これらの負荷がサーバのCPUコア数を下回る値であれば問題ありません。
+                このコマンドを実行上記の画像にもあるように「load average」という項目が表示されます。左から順に、1分間での負荷、5分間での負荷、15分間での負荷が表示されます。これらの負荷がサーバのCPUコア数を下回る値であれば問題ありません。
                 <br>
                 しかし、コア数を上回る値が持続している場合は、サーバのスペックが不足しているため、増強が必要になります。
             </p>
         
             <h3>ディスク使用状況</h3>
-            <p>ディスクの使用状況は <code>df</code> コマンドを使って確認できます。コマンドを実行する際は、単位が見やすくなる <code>-h</code> オプションを付けると良いでしょう。</p>
+            <p>ディスクの使用状況は <code>df</code> コマンドを使って確認できます。コマンドを実行する際は、単位が見やすくなる <code>-h</code> オプションを付けると良いでしょう。このコマンドで、サーバ内にマウントされているファイルシステムの一覧と各ファイルシステムの使用状況を表示します。</p>
             <pre><code>$ df -h</code></pre>
-            <p>このコマンドで、サーバ内にマウントされているファイルシステムの一覧と各ファイルシステムの使用状況を表示します。</p>
-            <pre><code>Filesystem      Size  Used Avail Use% Mounted on
-            none            3.8G     0  3.8G   0% /usr/lib/modules
-            ・・・</code></pre>
+            <img src="img/df-h.png" alt="dhコマンド実行の結果">
 
             <h3>メモリとスワップ</h3>
-            <p>メインメモリやスワップ領域の利用状況を把握する場合は、<code>free</code> コマンドを使います。この時も <code>-h</code> オプションを付けます。</p>
+            <p>メインメモリやスワップ領域の利用状況を把握する場合は、<code>free</code> コマンドを使います。この時も <code>-h</code> オプションを付けます。スワップ領域が常に利用されている場合は、メインメモリが不足しているため、メモリ増設の判断基準となります。</p>
             <pre><code>$ free -h</code></pre>
-            <pre><code>total      used      free      shared  buff/cache  available
-            Mem:        7.4Gi    600Mi    6.4Gi    3.0Mi      479Mi    6.6Gi
-            Swap:       2.0Gi      0B     2.0Gi</code></pre>
-            <p>スワップ領域が常に利用されている場合は、メインメモリが不足しているため、メモリ増設の判断基準となります。</p>
+            <img src="img/free-h.png" alt="freeコマンド実行の結果">
 
             <h3>実行プロセス</h3>
             <p>実行中のプログラムはプロセスと呼ばれます。プロセスを確認するには、<code>ps</code> コマンドを使います。</p>
             <pre><code>$ ps aux</code></pre>
             <p>これにより実行中のすべてのプロセスが表示されますが、特定のプロセスについて確認したい場合は、<code>less</code> コマンドや <code>grep</code>を併せて使うことを推奨します。</p>
-
+            <img src="img/11-2.png" alt="ps auxコマンドの実行結果">
 
             <h3>システムモニタリング</h3>
             <p>システムの状態をリアルタイムにモニタリングしたい場合は、<code>top</code> コマンドを使用します。このコマンドは、<code>uptime</code> コマンドや <code>free</code> コマンド、<code>ps</code> コマンドで得られる結果をまとめて表示し、3秒ごとに情報が更新されます。</p>
             <pre><code>$ top</code></pre>
-            <pre><code>top - 11:07:48 up 17 min, 1 user, load average: 0.12, 0.03, 0.01
-            Tasks: 42 total, 1 running, 41 sleeping, 0 stopped, 0 zombie
-            %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni, 99.9 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
-            MiB Mem : 7588.3 total, 6699.3 free, 626.8 used, 262.3 buff/cache
-            MiB Swap: 2048.0 total, 2048.0 free, 0.0 used. 6731.7 avail Mem
-            PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
-            1 root   20   0 166060 11384 8280 S  0.7  0.1  0:05.12 systemd
-            ・・・</code></pre>
+            <img src="img/11-3.png" alt="topコマンドの実行結果">
 
             <h3>サービス管理</h3>
             <p>サービスは、OS本体から切り離し可能な特定の役割や機能を持ったサブシステムです。サービスには、ログ管理やネットワーク、各種サーバプログラムなどがあります。</p>
@@ -349,17 +367,7 @@
             <h3>時刻管理</h3>
             <p>サーバを運用する上で、システムの時刻の正確さは重要です。システムの時刻がずれていると、ログが活用できなくなったり、他のサーバとのやり取りでエラーが生じる可能性があります。Ubuntuでは、時刻管理を <code>timedatectl</code> コマンドで行います。</p>
             <pre><code>$ timedatectl</code></pre>
-            <pre><code>Local time: Wed 2024-09-18 15:29:39 JST
-                Universal time: Wed 2024-09-18 06:29:39 UTC
-                RTC time: Wed 2024-09-18 06:29:39
-                Time zone: Asia/Tokyo (JST, +0900)
-                System clock synchronized: yes
-                NTP service: inactive
-                RTC in local TZ: no</code></pre>
-                <p>時刻を自動で設定したい場合は、NTP (Network Time Protocol) を利用します。NTPはインターネット経由で時刻を同期させる仕組みで、<code>timedatectl</code> コマンドで有効化することができます。正しく実行できれば、<code>timedatectl</code> コマンドの実行結果に <code>NTP synchronized: yes</code> と表示されます。</p>
-                <pre><code>$ sudo timedatectl set-ntp true</code></pre>
-                <p>サーバのタイムゾーンを設定する場合は、利用可能なタイムゾーンを確認した後、<code>timedatectl</code> コマンドで設定します。日本の場合は、「<code>Asia/Tokyo</code>」を指定します。</p>
-                <pre><code>$ sudo timedatectl set-timezone Asia/Tokyo</code></pre>
+            <img src="img/timedatectl.png" alt="timedatectlコマンドの実行結果">
         </section>
 
         <section id="section7">
@@ -390,9 +398,11 @@
     $ sudo systemctl enable apache2 # Apacheの自動起動の有効化
     $ sudo systemctl status apache2 # Apacheのステータス</code></pre>
                     </div>
+                    <img style="width: 100%;" src="img/systemctl.png" alt="systemctlコマンドの実行結果">
 
                     <div class="note">
                         <p>最後に、ブラウザから「http://&lt;サーバのIPアドレス&gt;」にアクセスし、Apacheのウェルカムページが表示されれば完了です。もし、サーバ上でWebサーバにアクセスする場合、「http://localhost」と検索することで表示できます。</p>
+                        <img style="width: 100%;" src="img/welcome_Apache.png" alt="apacheのウェルカムページ">
                     </div>
 
                 <h3>Apacheの設定</h3>
@@ -452,13 +462,13 @@
                     <div class="command-block">
                         <h4>仮想ホストの有効化</h4>
                         <pre><code>$ sudo a2ensite ファイル名.conf # 仮想ホストの有効化
-            $ sudo systemctl reload apache2 # 有効化した仮想ホストをサーバに反映</code></pre>
+$ sudo systemctl reload apache2 # 有効化した仮想ホストをサーバに反映</code></pre>
                     </div>
 
                     <div class="command-block">
                         <h4>デフォルトの仮想ホストの無効化</h4>
                         <pre><code>$ sudo a2dissite 000-default.conf # 仮想ホストの無効化
-            $ sudo systemctl reload apache2 # 有効化した仮想ホストをサーバに反映</code></pre>
+$ sudo systemctl reload apache2 # 有効化した仮想ホストをサーバに反映</code></pre>
                     </div>
 
                 <h3>ファイアウォールの設定</h3>
@@ -623,8 +633,8 @@
                         <div class="command-block">
                             <h5>OpenSSHの起動</h5>
                             <pre><code>$ sudo systemctl start ssh
-            $ sudo systemctl enable ssh
-            $ sudo systemctl status ssh</code></pre>
+$ sudo systemctl enable ssh
+$ sudo systemctl status ssh</code></pre>
                         </div>
         
                 <h3>ポート番号の設定</h3>
@@ -669,7 +679,7 @@
         Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</code></pre>
                     </div>
         
-                <h3>段階認証の利用</h3>
+                <h3>2段階認証の利用</h3>
                     <p>設定の手順は以下の通りになる：</p>
                     <ol>
                         <li>SSH接続を利用するクライアントPCの公開鍵・秘密鍵を生成する</li>
