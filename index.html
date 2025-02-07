@@ -64,7 +64,7 @@
                         <p>次にダウンロードしたイメージをUSBにコピーしてインストールUSBメディアにするために<a href="https://rufus.ie/ja/">rufus</a>を使います。rufusとは、起動可能なUSBドライブを簡単に作成するサービスです。UbuntsuのほかにもLinux系のOSなどのインストールイメージにも対応しています。</p>
                         
                         <div class="image-container">
-                            <img src="/img/rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
+                            <img src="./img/rufus_exe.png" alt="rufusのエグゼファイルを選ぶ画面">
                             <p class="image-caption">一番上の<code>rufus-4.6.exe</code>を選びダウンロードできたらexeファイルを実行します。</p>
                         </div>
         
@@ -77,7 +77,7 @@
                             <p>起動したらまず<span class="highlight">USBメディア</span>をUSBポートにつなぎ、選択から先ほどダウンロードしたインストールイメージを選択し、スタートを押すとダウンロードが始まります。</p>
                             
                             <div class="image-container">
-                                <img src="/img/rufus_setting.png" alt="rufusで設定している様子">
+                                <img src="./img/rufus_setting.png" alt="rufusで設定している様子">
                             </div>
         
                             <div class="warning-box">
@@ -248,14 +248,14 @@
             <h3>一般ユーザの追加・削除とグループの管理</h3>
             <ul>
                 <li><strong>ユーザの追加</strong>
-                    <img src="/img/new_user_create.png" alt="ユーザーの追加画面">
+                    <img src="./img/new_user_create.png" alt="ユーザーの追加画面">
                     <p>新規ユーザー作成のコマンドは<code>$ sudo adduser ユーザ名</code>です。設定を進めていくと上記画像のように住所や電話番号を登録するか聞かれますが、ここは任意なので登録しない場合は、Enterキーを押してスキップしても構いません。</p>
                 </li>
                 <li><strong>ユーザをグループへ追加</strong>
                     <p><code>$ sudo usermod -aG グループ名 ユーザ名</code>でグループに追加できます。</p>
                     <p>
                         今使っているユーザーがどのようなグループに所属しているかの確認は下記画像のように<code>$ groups グループ名</code>でできます。
-                        <img src="/img/group.png" alt="グループの確認">
+                        <img src="./img/group.png" alt="グループの確認">
                     </p>
                 </li>
                 <li><strong>削除</strong>
@@ -266,7 +266,7 @@
             <h3>ユーザの切り替え</h3>
             <p>
                 作業に応じて適切なユーザに切り替えるには <code>su</code> コマンドを使用します。
-                <img src="img/su_result.png" alt="suコマンドの実行結果">
+                <img src="./img/su_result.png" alt="suコマンドの実行結果">
                 <br>
                 特定のユーザーに切り替えるためは上記の画像のように、<code>$ su ユーザ名</code>で切り替えることができます。rootユーザーへの切り替えは、<code>$ su</code>か<code>$ su -</code>で行います。<code>su -</code> を使うと、rootユーザへの切り替え時にホームディレクトリにも移動します。
             </p>
@@ -283,7 +283,7 @@
             <h2>6. 基本的なサーバ管理</h2>
             <h3>サーバ負荷</h3>
             <p>
-                <img src="img/uptime.png" alt="uptimeコマンドの実行結果">
+                <img src="./img/uptime.png" alt="uptimeコマンドの実行結果">
                 <br>
                 サーバの稼働状況 (負荷)を確認し、十分に稼働できているのかを理解することで、サーバのスペックが十分かどうかの判断ができます。サーバの負荷を確認するには、<code>uptime</code> コマンドを実行します。
                 <br>
@@ -295,12 +295,12 @@
             <h3>ディスク使用状況</h3>
             <p>ディスクの使用状況は <code>df</code> コマンドを使って確認できます。コマンドを実行する際は、単位が見やすくなる <code>-h</code> オプションを付けると良いでしょう。このコマンドで、サーバ内にマウントされているファイルシステムの一覧と各ファイルシステムの使用状況を表示します。</p>
             <pre><code>$ df -h</code></pre>
-            <img src="img/df-h.png" alt="dhコマンド実行の結果">
+            <img src="./img/df-h.png" alt="dhコマンド実行の結果">
 
             <h3>メモリとスワップ</h3>
             <p>メインメモリやスワップ領域の利用状況を把握する場合は、<code>free</code> コマンドを使います。この時も <code>-h</code> オプションを付けます。スワップ領域が常に利用されている場合は、メインメモリが不足しているため、メモリ増設の判断基準となります。</p>
             <pre><code>$ free -h</code></pre>
-            <img src="img/free-h.png" alt="freeコマンド実行の結果">
+            <img src="./img/free-h.png" alt="freeコマンド実行の結果">
 
             <h3>実行プロセス</h3>
             <p>実行中のプログラムはプロセスと呼ばれます。プロセスを確認するには、<code>ps</code> コマンドを使います。</p>
